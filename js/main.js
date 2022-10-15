@@ -80,12 +80,11 @@ const getRandomFloat = (start, end, precision)=>{
   return roundFraction((max - min) * Math.random() + min, precision);
 };
 
-const getLocation = ()=>{
-  return {
+const getLocation = ()=>({
     lat: getRandomFloat(BORDERS.location.lat.min, BORDERS.location.lat.max, COORDINATES_PRECISION),
     lng: getRandomFloat(BORDERS.location.lng.min, BORDERS.location.lng.max, COORDINATES_PRECISION)
-  };
-};
+  });
+
 
 const Title = {
   words :[
@@ -121,7 +120,7 @@ const getDescription = ()=>getUniqRandomArray(sentences.slice()).join(' ');
 
 const getPhotos = () =>{
   const arrayPhotos = Array(getRandomInt(1, PHOTO_COUNT)).fill(0);
-  return arrayPhotos.map(e=>photos[getRandomInt(e, photos.length - 1)]);
+  return arrayPhotos.map((e)=>photos[getRandomInt(e, photos.length - 1)]);
 };
 
 const getAvatar = (num) =>`img/avatars/user${num.toString().padStart(2,'0')}.png`;
@@ -153,5 +152,5 @@ const createItem = (num)=>{
 
 const createData = ()=>Array(DATA_SIZE).fill(0).map((e, i)=>createItem(i));
 
-console.log(createData());
-//createData();
+//console.log(createData());
+createData();
