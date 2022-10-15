@@ -45,8 +45,8 @@ const getLocation = function(){
   return {
     lat: randomFloat(35.65000, 35.70000, 5),
     lng: randomFloat(139.70000, 139.80000, 5)
-  }
-}
+  };
+};
 
 const getTitle = function(){
   const res = [];
@@ -59,29 +59,29 @@ const getTitle = function(){
     ['Скрытное', 'пристанище', 'злых гангстеров']
   ];
   for (let i = 0; i < 3; i++){
-    let j = randomInt(0, 5);
+    const j = randomInt(0, 5);
     res[i] = words[j][i];
   }
   res[3] = res[2];
   res[2] = 'для';
   return res.join(' ');
-}
+};
 
 const kFromN = function(variants){
   const select = [];
   const size = randomInt(1, variants.length);
   for (let i = 0; i < size; i++){
-    let j = randomInt(0, variants.length - 1);
+    const j = randomInt(0, variants.length - 1);
     select[i] = variants[j];
     variants.splice(j, 1);
   }
   return select;
-}
+};
 
 const getFeatures = function(){
   const features = ['wifi', 'dishwasher', 'parking', 'washer', 'elevator', 'conditioner'];
   return kFromN(features.slice());
-}
+};
 
 const getDescription = function(){
   const sentences = [
@@ -98,28 +98,28 @@ const getDescription = function(){
     'Из окна виден парк.'
   ];
   return kFromN(sentences.slice()).join(' ');
-}
+};
 
 const getPhotos = function(){
   const maxSize = 10;
   const photos = ['https://assets.htmlacademy.ru/content/intensive/javascript-1/keksobooking/duonguyen-8LrGtIxxa4w.jpg',
-                  'https://assets.htmlacademy.ru/content/intensive/javascript-1/keksobooking/brandon-hoogenboom-SNxQGWxZQi0.jpg',
-                  'https://assets.htmlacademy.ru/content/intensive/javascript-1/keksobooking/claire-rendall-b6kAwr1i0Iw.jpg'
+      'https://assets.htmlacademy.ru/content/intensive/javascript-1/keksobooking/brandon-hoogenboom-SNxQGWxZQi0.jpg',
+      'https://assets.htmlacademy.ru/content/intensive/javascript-1/keksobooking/claire-rendall-b6kAwr1i0Iw.jpg'
   ];
   const select = [];
-  let size = randomInt(1, maxSize);
+  const size = randomInt(1, maxSize);
   for ( let i = 0; i < size; i++){
     select[i] = photos[randomInt(0, photos.length - 1)];
   }
   return select;
-}
+};
 
 const getAvatar = function(num){
   let numStr = num.toString();
   const mask = '00';
   numStr = mask.substr(0, mask.length - numStr.length) + numStr;
   return `img/avatars/user${numStr}.png`;
-}
+};
 
 const createItem = function(num){
   const types = ['palace', 'flat', 'house', 'bungalow', 'hotel'];
@@ -147,17 +147,17 @@ const createItem = function(num){
       lng: location.lng
     }
   };
-}
+};
 
 
 const createData = function(){
-  const DATASIZE = 10
+  const DATASIZE = 10;
   const data = [];
   for(let i = 0; i < DATASIZE; i++){
     data[i] = createItem(i);
   }
   return data;
-}
+};
 
 //console.log(createData());
 createData();
