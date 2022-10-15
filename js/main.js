@@ -87,7 +87,7 @@ const getLocation = ()=>{
   };
 };
 
-let Title = {
+const Title = {
   words :[
     ['Уютное', 'гнездышко', 'для молодоженов'],
     ['Убогое', 'лежбище', 'для наркоманов'],
@@ -98,12 +98,9 @@ let Title = {
   ],
 
   get: function(){
-    const res = [];
-    for (let i = 0; i < this.words[0].length; i++){
-      const j = getRandomInt(0, this.words.length - 1);
-      res[i] = (this.words)[j][i];
-    }
-    return res.join(' ');
+    const sentenceSize = this.words[0].length;
+    return Array(sentenceSize).fill('').map((e,i)=>
+      (this.words)[getRandomInt(0, this.words.length - 1)][i]).join(' ');
   }
 };
 
@@ -124,12 +121,12 @@ const getDescription = ()=>getUniqRandomArray(sentences.slice()).join(' ');
 
 const getPhotos = () =>{
   const arrayPhotos = Array(getRandomInt(1, PHOTO_COUNT)).fill(0);
-  return arrayPhotos.map(e=>photos[getRandomInt(0, photos.length - 1)]);
+  return arrayPhotos.map(e=>photos[getRandomInt(e, photos.length - 1)]);
 };
 
 const getAvatar = (num) =>`img/avatars/user${num.toString().padStart(2,'0')}.png`;
 
-const getRandomElement = (array) =>array[getRandomInt(0, array.length - 1)]
+const getRandomElement = (array) =>array[getRandomInt(0, array.length - 1)];
 
 const createItem = (num)=>{
   const location = getLocation();
@@ -156,5 +153,5 @@ const createItem = (num)=>{
 
 const createData = ()=>Array(DATA_SIZE).fill(0).map((e, i)=>createItem(i));
 
-//console.log(createData());
-createData();
+console.log(createData());
+//createData();
