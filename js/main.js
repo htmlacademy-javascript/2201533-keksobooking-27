@@ -81,9 +81,9 @@ const getRandomFloat = (start, end, precision)=>{
 };
 
 const getLocation = ()=>({
-    lat: getRandomFloat(BORDERS.location.lat.min, BORDERS.location.lat.max, COORDINATES_PRECISION),
-    lng: getRandomFloat(BORDERS.location.lng.min, BORDERS.location.lng.max, COORDINATES_PRECISION)
-  });
+  lat: getRandomFloat(BORDERS.location.lat.min, BORDERS.location.lat.max, COORDINATES_PRECISION),
+  lng: getRandomFloat(BORDERS.location.lng.min, BORDERS.location.lng.max, COORDINATES_PRECISION)
+});
 
 
 const Title = {
