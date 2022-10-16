@@ -1,4 +1,4 @@
-import {getRandomInt, newArray} from "./utils.js";
+import {getRandomInt, newArray} from './utils.js';
 
 const DATA_SIZE = 10;
 const FEATURES = ['wifi', 'dishwasher', 'parking', 'washer', 'elevator', 'conditioner'];
@@ -66,4 +66,4 @@ const Title = {
   }
 };
 
-export {DATA_SIZE, FEATURES, SENTENCES, PHOTOS, TYPES, COORDINATES_PRECISION, CHECKS, BORDERS, PHOTO_COUNT, Title}
+export {DATA_SIZE, FEATURES, SENTENCES, PHOTOS, TYPES, COORDINATES_PRECISION, CHECKS, BORDERS, PHOTO_COUNT, Title};

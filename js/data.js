@@ -1,9 +1,9 @@
 import {
   DATA_SIZE, FEATURES, SENTENCES, PHOTOS, TYPES, COORDINATES_PRECISION, CHECKS, BORDERS, PHOTO_COUNT, Title
-} from "./setings.js";
+} from './setings.js';
 import {
   getRandomElement, getRandomFloat, getRandomInt, getUniqRandomArray, newArray
-} from "./utils.js";
+} from './utils.js';
 
 const getLocation = ()=>({
   lat: getRandomFloat(BORDERS.location.lat.min, BORDERS.location.lat.max, COORDINATES_PRECISION),

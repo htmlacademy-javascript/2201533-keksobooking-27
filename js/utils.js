@@ -46,4 +46,4 @@ const getRandomElement = (array)=>array[getRandomInt(0, array.length - 1)];
 
 const newArray = (size)=>Array(size).fill(0);
 
-export {getRandomFloat, getRandomInt, getUniqRandomArray, getRandomElement, newArray}
+export {getRandomFloat, getRandomInt, getUniqRandomArray, getRandomElement, newArray};
