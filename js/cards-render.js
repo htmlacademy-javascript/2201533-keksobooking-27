@@ -31,7 +31,7 @@ const createCard = (data)=>{
     }
   }
   const photoContainer = card.querySelector('.popup__photos');
-  const photoTemplate= photoContainer.querySelector('.popup__photo');
+  const photoTemplate = photoContainer.querySelector('.popup__photo');
   for (const photo of photos){
     const photoImg = photoTemplate.cloneNode(false);
     photoImg.src = photo;
