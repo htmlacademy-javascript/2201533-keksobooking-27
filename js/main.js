@@ -6,7 +6,4 @@ import {renderRandomCard} from './cards-render.js';
 const dates = createData();
 renderRandomCard(dates);
 
-
-
 //const cards = createData().map((item)=>renderCard(item));
-

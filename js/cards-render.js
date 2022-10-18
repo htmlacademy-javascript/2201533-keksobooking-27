@@ -9,7 +9,7 @@ const fillBlock = (card, value, classStr, prop = 'textContent')=>{
   else{
     block[prop] = value;
   }
-}
+};
 
 const createCard = (data)=>{
   const {offer, author} = data;
@@ -24,26 +24,26 @@ const createCard = (data)=>{
   fillBlock(card, `Заезд после ${checkin}, выезд до ${checkout}`,'.popup__text--time');
   fillBlock(card, description,'.popup__description');
   fillBlock(card, author.avatar,'.popup__avatar', 'src');
-  for (let feature of FEATURES){
-    let featureLi = card.querySelector('.popup__feature--' + feature);
+  for (const feature of FEATURES){
+    const featureLi = card.querySelector(`.popup__feature--${feature}`);
     if (!features.includes(feature)){
       featureLi.remove();
     }
   }
   const photoContainer = card.querySelector('.popup__photos');
-  let photoTemplate= photoContainer.querySelector('.popup__photo');
-  for (let photo of photos){
-    let photoImg = photoTemplate.cloneNode(false);
+  const photoTemplate= photoContainer.querySelector('.popup__photo');
+  for (const photo of photos){
+    const photoImg = photoTemplate.cloneNode(false);
     photoImg.src = photo;
     photoContainer.appendChild(photoImg);
   }
   photoTemplate.remove();
   return card;
-}
+};
 
 const renderRandomCard = (cards)=>{
   const canvas = document.querySelector('#map-canvas');
   canvas.appendChild(createCard(getRandomElement(cards)));
-}
+};
 
-export {createCard, renderRandomCard}
+export {createCard, renderRandomCard};

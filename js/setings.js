@@ -27,7 +27,7 @@ const TYPES_LABEL = {
   'house': 'Дом',
   'bungalow': 'Бунгало',
   'hotel': 'Отель'
-}
+};
 const CHECKS = ['12:00', '13:00', '14:00'];
 const BORDERS = {
   price: {
