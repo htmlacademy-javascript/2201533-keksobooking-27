@@ -21,6 +21,13 @@ const PHOTOS = [
   'https://assets.htmlacademy.ru/content/intensive/javascript-1/keksobooking/claire-rendall-b6kAwr1i0Iw.jpg'
 ];
 const TYPES = ['palace', 'flat', 'house', 'bungalow', 'hotel'];
+const TYPES_LABEL = {
+  'palace': 'Дворец',
+  'flat': 'Квартира',
+  'house': 'Дом',
+  'bungalow': 'Бунгало',
+  'hotel': 'Отель'
+};
 const CHECKS = ['12:00', '13:00', '14:00'];
 const BORDERS = {
   price: {
@@ -67,3 +74,4 @@ const Title = {
 };
 
 export {DATA_SIZE, FEATURES, SENTENCES, PHOTOS, TYPES, COORDINATES_PRECISION, CHECKS, BORDERS, PHOTO_COUNT, Title};
+export {TYPES_LABEL};
