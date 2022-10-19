@@ -10,7 +10,7 @@ const actions = {
     'form': (element)=>element.classList.remove('ad-form--disabled'),
     'child': (element)=>element.removeAttribute('disabled')
   }
-}
+};
 
 const changeState = ()=>{
   const forms = document.querySelectorAll('form');
@@ -21,6 +21,6 @@ const changeState = ()=>{
     }
   });
   enabled = !enabled;
-}
+};
 
 promo.addEventListener('click', ()=>changeState());
