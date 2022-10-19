@@ -24,20 +24,34 @@ const createCard = (data)=>{
   fillBlock(card, `Заезд после ${checkin}, выезд до ${checkout}`,'.popup__text--time');
   fillBlock(card, description,'.popup__description');
   fillBlock(card, author.avatar,'.popup__avatar', 'src');
-  for (const feature of FEATURES){
-    const featureLi = card.querySelector(`.popup__feature--${feature}`);
-    if (!features.includes(feature)){
-      featureLi.remove();
-    }
+  const featuresUl = card.querySelector('.popup__features');
+  if (!features || features.length === 0){
+    featuresUl.remove();
+  }
+  else{
+    const featuresCollection = featuresUl.querySelectorAll('.popup__feature');
+    featuresCollection.forEach((itemCollection)=>{
+      const stay = features.some((feature)=>{
+        return itemCollection.classList.contains(`popup__feature--${feature}`);
+      });
+      if (!stay){
+        itemCollection.remove();
+      }
+    });
   }
   const photoContainer = card.querySelector('.popup__photos');
-  const photoTemplate = photoContainer.querySelector('.popup__photo');
-  for (const photo of photos){
-    const photoImg = photoTemplate.cloneNode(false);
-    photoImg.src = photo;
-    photoContainer.appendChild(photoImg);
+  if (!photos || photos.length === 0){
+    photoContainer.remove();
   }
-  photoTemplate.remove();
+  else{
+    const photoTemplate = photoContainer.querySelector('.popup__photo');
+    photos.forEach((photo)=>{
+      const photoImg = photoTemplate.cloneNode(false);
+      photoImg.src = photo;
+      photoContainer.appendChild(photoImg);
+    });
+    photoTemplate.remove();
+  }
   return card;
 };
 
