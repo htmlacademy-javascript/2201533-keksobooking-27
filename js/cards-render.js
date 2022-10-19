@@ -1,4 +1,4 @@
-import {TYPES_LABEL, FEATURES} from './setings.js';
+import {TYPES_LABEL} from './setings.js';
 import {getRandomElement} from './utils.js';
 
 const fillBlock = (card, value, classStr, prop = 'textContent')=>{
@@ -31,9 +31,7 @@ const createCard = (data)=>{
   else{
     const featuresCollection = featuresUl.querySelectorAll('.popup__feature');
     featuresCollection.forEach((itemCollection)=>{
-      const stay = features.some((feature)=>{
-        return itemCollection.classList.contains(`popup__feature--${feature}`);
-      });
+      const stay = features.some((feature)=> itemCollection.classList.contains(`popup__feature--${feature}`));
       if (!stay){
         itemCollection.remove();
       }
