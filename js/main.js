@@ -1,6 +1,7 @@
 import './data.js';
 import {createData} from './data.js';
 import {renderRandomCard} from './cards-render.js';
+import './forms.js';
 //console.log(createData());
 
 /*let und;
