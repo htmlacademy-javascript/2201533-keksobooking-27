@@ -18,7 +18,7 @@ const forms = document.querySelectorAll('form');
 const changeState = ()=>{
   forms.forEach((form)=>{
     form.classList.toggle('ad-form--disabled');
-    for (let child of form.children) {
+    for (const child of form.children) {
       child.disabled = enabled;
     }
   });
