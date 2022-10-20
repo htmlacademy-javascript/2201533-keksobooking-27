@@ -1,26 +1,30 @@
 let enabled = true;
-const promo = document.querySelector('.promo');
+const forms = document.querySelectorAll('form');
 
-const actions = {
-  true: {
-    'form': (element)=>element.classList.add('ad-form--disabled'),
-    'child': (element)=>element.setAttribute('disabled', 'disabled')
-  },
-  false: {
-    'form': (element)=>element.classList.remove('ad-form--disabled'),
-    'child': (element)=>element.removeAttribute('disabled')
-  }
-};
+/*const changeState = ()=>{
+  const tags = ['input','select','textarea','button', '.ad-form__slider'];
+  forms.forEach(
+  (form)=> {
+    form.classList.toggle('ad-form--disabled');
+    tags.forEach(
+      (tag) => form.querySelectorAll(tag).forEach(
+        element => element.disabled = enabled
+      )
+    );
+  });
+  enabled = !enabled;
+};*/
 
 const changeState = ()=>{
-  const forms = document.querySelectorAll('form');
   forms.forEach((form)=>{
-    actions[enabled]['form'](form);
-    for (const child of form.children){
-      actions[enabled]['child'](child);
+    form.classList.toggle('ad-form--disabled');
+    for (let child of form.children) {
+      child.disabled = enabled;
     }
   });
   enabled = !enabled;
 };
 
+const promo = document.querySelector('.promo');
 promo.addEventListener('click', ()=>changeState());
+
