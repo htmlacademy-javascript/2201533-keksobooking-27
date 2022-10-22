@@ -71,7 +71,7 @@ selectType.addEventListener('change', priceFieldParam);
 const validateGuests = ()=>{
   const rooms = Number(selectRooms.selectedOptions[0].value);
   const guests = Number(selectGuests.selectedOptions[0].value);
-  return (guests <= rooms && rooms !== 100 && guests !== 0) || (guests === 0 && rooms === 100)
+  return (guests <= rooms && rooms !== 100 && guests !== 0) || (guests === 0 && rooms === 100);
 };
 
 const getRoomsErrorMessage = ()=>'Количество гостей не соответствует количеству комнат';
