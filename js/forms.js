@@ -1,5 +1,5 @@
 import {declension} from './utils.js';
-import {TYPES_ATTRIBUTES} from "./setings.js";
+import {TYPES_ATTRIBUTES} from './setings.js';
 
 const adForm = document.querySelector('.ad-form');
 const selectType = adForm.querySelector('#type');
@@ -30,18 +30,18 @@ adForm.querySelectorAll('fieldset').forEach(
 
 adForm.querySelectorAll('input').forEach((e)=>{
   if (e.required){
-    e.dataset.pristineRequiredMessage='Обязательное поле';
+    e.dataset.pristineRequiredMessage = 'Обязательное поле';
   }
   if (e.minLength > -1){
-    e.dataset.pristineMinlengthMessage=
+    e.dataset.pristineMinlengthMessage =
       `Минимальная длина ${e.minLength}  ${declension(e.minLength, 'символ')}`;
   }
   if (e.maxLength > -1){
-    e.dataset.pristineMaxlengthMessage=
+    e.dataset.pristineMaxlengthMessage =
       `Максимальная длина ${e.minLength}  ${declension(e.maxLength, 'символ')}`;
   }
   if (e.max !== ''){
-    e.dataset.pristineMaxMessage=
+    e.dataset.pristineMaxMessage =
       `Максимальное значение ${e.max}`;
   }
 });
@@ -69,31 +69,30 @@ priceFieldParam();
 selectType.addEventListener('change', priceFieldParam);
 
 const validateGuests = ()=>{
-  const rooms = selectRooms.selectedOptions[0].value;
-  const guests = selectGuests.selectedOptions[0].value;
-  return (guests <= rooms && rooms != 100 && guests != 0) || (guests==0 && rooms==100)
-}
+  const rooms = Number(selectRooms.selectedOptions[0].value);
+  const guests = Number(selectGuests.selectedOptions[0].value);
+  return (guests <= rooms && rooms !== 100 && guests !== 0) || (guests === 0 && rooms === 100)
+};
 
-const getRoomsErrorMessage = ()=>{
-  return 'Количество гостей не соответствует количеству комнат'
-}
+const getRoomsErrorMessage = ()=>'Количество гостей не соответствует количеству комнат';
 
 const getGuestsErrorMessage = ()=>{
   const options = {};
   selectGuests.querySelectorAll('option').forEach((option)=>{
     options[option.value] = option.textContent;
   });
-  let variants = [];
-  const rooms = selectRooms.selectedOptions[0].value;
-  const guests = selectGuests.selectedOptions[0].value;
-  if (rooms == 100) variants.push(options[0])
+  const variants = [];
+  const rooms = Number(selectRooms.selectedOptions[0].value);
+  if (rooms === 100) {
+    variants.push(options[0]);
+  }
   else{
     for (let i = 1; i <= rooms; i++){
-      variants.push(options[i])
+      variants.push(options[i]);
     }
   }
   return `Возможные варианты: ${variants.join(', ')}.`;
-}
+};
 
 pristine.addValidator(selectRooms, validateGuests, getRoomsErrorMessage);
 pristine.addValidator(selectGuests, validateGuests, getGuestsErrorMessage);
@@ -101,7 +100,7 @@ pristine.addValidator(selectGuests, validateGuests, getGuestsErrorMessage);
 const validateRoomsGuests = ()=>{
   pristine.validate(selectRooms);
   pristine.validate(selectGuests);
-}
+};
 validateRoomsGuests();
 selectRooms.addEventListener('change', validateRoomsGuests);
 selectGuests.addEventListener('change', validateRoomsGuests);
@@ -109,7 +108,9 @@ selectGuests.addEventListener('change', validateRoomsGuests);
 adForm.addEventListener('submit', (evt)=>{
   evt.preventDefault();
   const valid = pristine.validate();
-  if (valid) adForm.submit();
+  if (valid) {
+    adForm.submit();
+  }
 });
 
 //Это временный вспомогательный код

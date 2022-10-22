@@ -1,4 +1,4 @@
-import {words} from './setings.js'
+import {words} from './setings.js';
 const getRandomInt = (start, end) =>{
   const max = Math.floor(Math.max(start, end));
   const min = Math.ceil(Math.min(start, end));
@@ -60,7 +60,7 @@ const declension = (number, word)=>{
     return words.get(word)[1];
   }
   return words.get(word)[2];
-}
+};
 
 export {getRandomFloat, getRandomInt, getUniqRandomArray, getRandomElement, newArray};
 export {declension};
