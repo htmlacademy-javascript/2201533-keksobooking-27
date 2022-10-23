@@ -21,18 +21,19 @@ const PHOTOS = [
   'https://assets.htmlacademy.ru/content/intensive/javascript-1/keksobooking/claire-rendall-b6kAwr1i0Iw.jpg'
 ];
 const TYPES = ['palace', 'flat', 'house', 'bungalow', 'hotel'];
-const TYPES_LABEL = {
-  'palace': 'Дворец',
-  'flat': 'Квартира',
-  'house': 'Дом',
-  'bungalow': 'Бунгало',
-  'hotel': 'Отель'
+const TYPES_ATTRIBUTES = {
+  palace: {name: 'Дворец', minPrice: 10000},
+  flat: {name: 'Квартира', minPrice: 1000},
+  house: {name: 'Дом', minPrice: 5000},
+  bungalow: {name: 'Бунгало', minPrice: 0},
+  hotel: {name: 'Отель', minPrice: 3000},
 };
+
 const CHECKS = ['12:00', '13:00', '14:00'];
 const BORDERS = {
   price: {
-    min: 3000,
-    max: 300000
+    min: 300,
+    max: 100000
   },
   rooms: {
     min: 1,
@@ -73,5 +74,10 @@ const Title = {
   }
 };
 
+const words = new Map();
+words.set('символ',['символ', 'символа', 'символов']);
+
+
 export {DATA_SIZE, FEATURES, SENTENCES, PHOTOS, TYPES, COORDINATES_PRECISION, CHECKS, BORDERS, PHOTO_COUNT, Title};
-export {TYPES_LABEL};
+export {TYPES_ATTRIBUTES};
+export {words};

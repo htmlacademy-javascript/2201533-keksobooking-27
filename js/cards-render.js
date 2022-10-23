@@ -1,4 +1,4 @@
-import {TYPES_LABEL} from './setings.js';
+import {TYPES_ATTRIBUTES} from './setings.js';
 import {getRandomElement} from './utils.js';
 
 const fillBlock = (card, value, classStr, prop = 'textContent')=>{
@@ -19,7 +19,7 @@ const createCard = (data)=>{
   fillBlock(card, title,'.popup__title');
   fillBlock(card, address,'.popup__text--address');
   fillBlock(card, `${price} ₽/ночь`,'.popup__text--price');
-  fillBlock(card, TYPES_LABEL[type],'.popup__type');
+  fillBlock(card, TYPES_ATTRIBUTES[type].name,'.popup__type');
   fillBlock(card, `${rooms} комнаты для ${guests} гостей`,'.popup__text--capacity');
   fillBlock(card, `Заезд после ${checkin}, выезд до ${checkout}`,'.popup__text--time');
   fillBlock(card, description,'.popup__description');
