@@ -22,11 +22,11 @@ const PHOTOS = [
 ];
 const TYPES = ['palace', 'flat', 'house', 'bungalow', 'hotel'];
 const TYPES_ATTRIBUTES = {
-  'palace': {name: 'Дворец', minPrice: 10000},
-  'flat': {name: 'Квартира', minPrice: 1000},
-  'house': {name: 'Дом', minPrice: 5000},
-  'bungalow': {name: 'Бунгало', minPrice: 0},
-  'hotel': {name: 'Отель', minPrice: 3000},
+  palace: {name: 'Дворец', minPrice: 10000},
+  flat: {name: 'Квартира', minPrice: 1000},
+  house: {name: 'Дом', minPrice: 5000},
+  bungalow: {name: 'Бунгало', minPrice: 0},
+  hotel: {name: 'Отель', minPrice: 3000},
 };
 
 const CHECKS = ['12:00', '13:00', '14:00'];

@@ -1,6 +1,15 @@
 import {declension} from './utils.js';
 import {TYPES_ATTRIBUTES} from './setings.js';
 
+const PRISTINE_CONFIG = {
+  classTo: 'classTo',
+  errorClass: 'ad-form__element--invalid',
+  errorTextParent: 'classTo',
+  errorTextClass: 'text-help'
+};
+
+const LOT_OF_ROOMS = 100;
+
 const adForm = document.querySelector('.ad-form');
 const selectType = adForm.querySelector('#type');
 const inputPrice = adForm.querySelector('#price');
@@ -26,7 +35,7 @@ const changeState = (form, enable)=>{
 //Это для пристины
 
 adForm.querySelectorAll('fieldset').forEach(
-  (e)=>e.classList.add('classTo'));
+  (element)=>element.classList.add('classTo'));
 
 adForm.querySelectorAll('input').forEach((e)=>{
   if (e.required){
@@ -46,17 +55,9 @@ adForm.querySelectorAll('input').forEach((e)=>{
   }
 });
 
-const pristineConfig = {
-  classTo: 'classTo',
-  errorClass: 'ad-form__element--invalid',
-  errorTextParent: 'classTo',
-  errorTextClass: 'text-help'
-};
+const pristine = new Pristine(adForm, PRISTINE_CONFIG);
 
-const pristine = new Pristine(adForm, pristineConfig);
-
-
-const priceFieldParam = ()=>{
+const setPriceFieldParam = ()=>{
   const minPrice = TYPES_ATTRIBUTES[selectType.selectedOptions[0].value].minPrice;
   inputPrice.min = minPrice;
   inputPrice.placeholder = `${minPrice} - ${inputPrice.max
@@ -65,13 +66,13 @@ const priceFieldParam = ()=>{
   inputPrice.pristine.messages.en.min = `Минимальное значение: ${minPrice}`;
 };
 
-priceFieldParam();
-selectType.addEventListener('change', priceFieldParam);
+setPriceFieldParam();
+selectType.addEventListener('change', ()=>setPriceFieldParam());
 
 const validateGuests = ()=>{
   const rooms = Number(selectRooms.selectedOptions[0].value);
   const guests = Number(selectGuests.selectedOptions[0].value);
-  return (guests <= rooms && rooms !== 100 && guests !== 0) || (guests === 0 && rooms === 100);
+  return (guests <= rooms && rooms !== LOT_OF_ROOMS && guests !== 0) || (guests === 0 && rooms === LOT_OF_ROOMS);
 };
 
 const getRoomsErrorMessage = ()=>'Количество гостей не соответствует количеству комнат';
@@ -102,8 +103,8 @@ const validateRoomsGuests = ()=>{
   pristine.validate(selectGuests);
 };
 validateRoomsGuests();
-selectRooms.addEventListener('change', validateRoomsGuests);
-selectGuests.addEventListener('change', validateRoomsGuests);
+selectRooms.addEventListener('change', ()=>validateRoomsGuests());
+selectGuests.addEventListener('change', ()=>validateRoomsGuests());
 
 adForm.addEventListener('submit', (evt)=>{
   evt.preventDefault();
