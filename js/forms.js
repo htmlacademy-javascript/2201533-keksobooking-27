@@ -102,7 +102,7 @@ const validateRoomsGuests = ()=>{
   pristine.validate(selectRooms);
   pristine.validate(selectGuests);
 };
-validateRoomsGuests();
+
 selectRooms.addEventListener('change', ()=>validateRoomsGuests());
 selectGuests.addEventListener('change', ()=>validateRoomsGuests());
 
