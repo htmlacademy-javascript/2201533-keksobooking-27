@@ -43,14 +43,14 @@ const renderAds = (data)=>{
 };
 
 document.addEventListener('dataIsLoaded',(evt)=>{
- renderAds(evt.detail);
- document.dispatchEvent(new Event('renderAds'));
+  renderAds(evt.detail);
+  document.dispatchEvent(new Event('renderAds'));
 });
 
 map.on('load', ()=>{
   document.dispatchEvent(new Event('mapIsLoaded'));
 })
- .setView(mapCenter, MAP_ZOOM);
+  .setView(mapCenter, MAP_ZOOM);
 
 mainMarker.addTo(map);
 

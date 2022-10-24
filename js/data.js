@@ -46,6 +46,6 @@ const createData = ()=>newArray(DATA_SIZE).map((e, i)=>createItem(i));
 document.addEventListener('loadData', ()=>{
   const data = createData();
   document.dispatchEvent(new CustomEvent('dataIsLoaded', {detail: data}));
-})
+});
 
 export {createData};
