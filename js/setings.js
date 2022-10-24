@@ -1,4 +1,4 @@
-import {getRandomInt, newArray} from './utils.js';
+import {getRandomInt, newArray, roundFraction} from './utils.js';
 
 const DATA_SIZE = 10;
 const FEATURES = ['wifi', 'dishwasher', 'parking', 'washer', 'elevator', 'conditioner'];
@@ -77,7 +77,14 @@ const Title = {
 const words = new Map();
 words.set('символ',['символ', 'символа', 'символов']);
 
+const {lat, lng} = BORDERS.location;
+const mapCenter = {
+  lat: roundFraction((lat.min + lat.max) / 2, COORDINATES_PRECISION),
+  lng: roundFraction((lng.min + lng.max) / 2, COORDINATES_PRECISION),
+}
+const MAP_ZOOM = 10;
 
 export {DATA_SIZE, FEATURES, SENTENCES, PHOTOS, TYPES, COORDINATES_PRECISION, CHECKS, BORDERS, PHOTO_COUNT, Title};
 export {TYPES_ATTRIBUTES};
 export {words};
+export {mapCenter, MAP_ZOOM};

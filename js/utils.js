@@ -64,3 +64,4 @@ const declension = (number, word)=>{
 
 export {getRandomFloat, getRandomInt, getUniqRandomArray, getRandomElement, newArray};
 export {declension};
+export {roundFraction};

@@ -1,5 +1,5 @@
-import {declension} from './utils.js';
-import {TYPES_ATTRIBUTES} from './setings.js';
+import {declension, roundFraction} from './utils.js';
+import {TYPES_ATTRIBUTES, mapCenter, COORDINATES_PRECISION} from './setings.js';
 
 const PRISTINE_CONFIG = {
   classTo: 'classTo',
@@ -17,6 +17,10 @@ const selectRooms = adForm.querySelector('#room_number');
 const selectGuests = adForm.querySelector('#capacity');
 const inputAddress = adForm.querySelector('#address');
 const inputTitle = adForm.querySelector('#title');
+const fieldTimes = adForm.querySelector('.ad-form__element--time');
+const selectTimes = fieldTimes.querySelectorAll('select');
+const forms = document.querySelectorAll('form');
+const filterForm = document.querySelector('.map__filters');
 
 //Перевод форм во включенное или отключенное состояние
 
@@ -66,8 +70,27 @@ const setPriceFieldParam = ()=>{
   inputPrice.pristine.messages.en.min = `Минимальное значение: ${minPrice}`;
 };
 
+const fillAddress = (location)=>{
+  inputAddress.value =`${roundFraction(location.lat, COORDINATES_PRECISION)},
+  ${roundFraction(location.lng, COORDINATES_PRECISION)}`
+};
+fillAddress(mapCenter);
+
 setPriceFieldParam();
+
+forms.forEach((form)=>changeState(form, false));
+
 selectType.addEventListener('change', ()=>setPriceFieldParam());
+fieldTimes.addEventListener('change', (evt)=>{
+  selectTimes.forEach((select)=> select.selectedIndex = evt.target.selectedIndex)
+});
+
+document.addEventListener('mapIsLoaded', ()=>{
+  changeState(adForm, true);
+  document.dispatchEvent(new Event('loadData'));
+});
+document.addEventListener('renderAds', ()=>changeState(filterForm, true));
+
 
 const validateGuests = ()=>{
   const rooms = Number(selectRooms.selectedOptions[0].value);
@@ -114,14 +137,7 @@ adForm.addEventListener('submit', (evt)=>{
   }
 });
 
-//Это временный вспомогательный код
-inputAddress.value = 'Где то в центре Токио';
-inputTitle.value = 'Милая, уютная квартирка в центре Токио';
-const forms = document.querySelectorAll('form');
-const promo = document.querySelector('.promo');
-promo.addEventListener('click', ()=>{
-  forms.forEach((form)=>{
-    changeState(form, form.classList.contains('ad-form--disabled'));
-  });
-});
+export {fillAddress};
 
+//Это временный вспомогательный код
+inputTitle.value = 'Милая, уютная квартирка в центре Токио';
