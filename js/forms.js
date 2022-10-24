@@ -82,7 +82,9 @@ forms.forEach((form)=>changeState(form, false));
 
 selectType.addEventListener('change', ()=>setPriceFieldParam());
 fieldTimes.addEventListener('change', (evt)=>
-  selectTimes.forEach((select)=>select.selectedIndex = evt.target.selectedIndex)
+  selectTimes.forEach((select)=>{
+    select.selectedIndex = evt.target.selectedIndex;
+  })
 );
 
 document.addEventListener('mapIsLoaded', ()=>{
