@@ -1,5 +1,7 @@
-import {mapCenter, MAP_ZOOM} from './setings.js';
-import {fillAddress} from './forms.js';
+import {MAIN_PIN_ICON, MAP_ZOOM, MAP_CENTER, PIN_ICON} from './setings.js';
+import {fillAddress, adForm, filterForm, changeState} from './forms.js';
+import {createData} from "./data.js";
+import {createCard} from "./cards-render.js";
 
 const map = L.map('map-canvas');
 
@@ -10,47 +12,36 @@ L.tileLayer(
   },
 ).addTo(map);
 
-const mainPinIcon = L.icon({
-  iconUrl: './img/main-pin.svg',
-  iconSize: [52, 52],
-  iconAnchor: [26, 52],
-});
-
 const mainMarker = L.marker(
-  mapCenter,
+  MAP_CENTER,
   {
     draggable: true,
-    icon: mainPinIcon
+    icon: MAIN_PIN_ICON
   }
 );
 
-const pinIcon = L.icon({
-  iconUrl: './img/pin.svg',
-  iconSize: [40, 40],
-  iconAnchor: [20, 40],
-});
+const adLayer = L.layerGroup().addTo(map);
 
-const renderAds = (data)=>{
-  data.forEach((ad)=>{
-    const marker = L.marker(
-      ad.location,
-      {
-        icon: pinIcon
-      }
-    );
-    marker.addTo(map);
-  });
-};
+const createMarker = (ad)=>{
+  const marker = L.marker(
+    ad.location,
+    {
+      icon: PIN_ICON
+    }
+  );
+  marker
+    .addTo(adLayer)
+    .bindPopup(createCard(ad));
+}
 
-document.addEventListener('dataIsLoaded',(evt)=>{
-  renderAds(evt.detail);
-  document.dispatchEvent(new Event('renderAds'));
-});
+const renderAds = (data)=>data.forEach((ad)=>createMarker(ad));
 
 map.on('load', ()=>{
-  document.dispatchEvent(new Event('mapIsLoaded'));
+  changeState(adForm, true);
+  renderAds(createData());
+  changeState(filterForm, true);
 })
-  .setView(mapCenter, MAP_ZOOM);
+  .setView(MAP_CENTER, MAP_ZOOM);
 
 mainMarker.addTo(map);
 
