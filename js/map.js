@@ -1,5 +1,5 @@
 import {MAIN_PIN_ICON, MAP_ZOOM, MAP_CENTER, PIN_ICON} from './setings.js';
-import {fillAddress, adForm, filterForm, changeState} from './forms.js';
+import {fillAddress, changeStateFilterForm, changeStateAdForm} from './forms.js';
 import {createData} from './data.js';
 import {createCard} from './cards-render.js';
 
@@ -16,7 +16,7 @@ const mainMarker = L.marker(
   MAP_CENTER,
   {
     draggable: true,
-    icon: MAIN_PIN_ICON
+    icon: L.icon(MAIN_PIN_ICON)
   }
 );
 
@@ -26,7 +26,7 @@ const createMarker = (ad)=>{
   const marker = L.marker(
     ad.location,
     {
-      icon: PIN_ICON
+      icon: L.icon(PIN_ICON)
     }
   );
   marker
@@ -37,9 +37,9 @@ const createMarker = (ad)=>{
 const renderAds = (data)=>data.forEach((ad)=>createMarker(ad));
 
 map.on('load', ()=>{
-  changeState(adForm, true);
+  changeStateAdForm(true);
   renderAds(createData());
-  changeState(filterForm, true);
+  changeStateFilterForm(true);
 })
   .setView(MAP_CENTER, MAP_ZOOM);
 

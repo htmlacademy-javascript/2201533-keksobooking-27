@@ -1,4 +1,4 @@
-import {words} from './setings.js';
+import {WORDS} from './setings.js';
 const getRandomInt = (start, end) =>{
   const max = Math.floor(Math.max(start, end));
   const min = Math.ceil(Math.min(start, end));
@@ -50,16 +50,16 @@ const newArray = (size)=>Array(size).fill(0);
 const declension = (number, word)=>{
   const num = Math.floor(number);
   if (num > 10 && num < 15){
-    return words.get(word)[2];
+    return WORDS.get(word)[2];
   }
   const rightDigit = Number(num.toString().substring(num.toString().length - 1));
   if (rightDigit === 1){
-    return words.get(word)[0];
+    return WORDS.get(word)[0];
   }
   if (rightDigit > 1 && rightDigit < 5){
-    return words.get(word)[1];
+    return WORDS.get(word)[1];
   }
-  return words.get(word)[2];
+  return WORDS.get(word)[2];
 };
 
 export {getRandomFloat, getRandomInt, getUniqRandomArray, getRandomElement, newArray};

@@ -36,6 +36,9 @@ const changeState = (form, enable)=>{
   }
 };
 
+const changeStateAdForm = (enable)=>changeState(adForm, enable);
+const changeStateFilterForm = (enable)=>changeState(filterForm, enable);
+
 //Это для пристины
 
 adForm.querySelectorAll('fieldset').forEach(
@@ -75,6 +78,9 @@ noUiSlider.create(priceSliderContainer, {
   },
 });
 
+const priceSlider = priceSliderContainer.querySelector('.noUi-handle');
+console.log(priceSlider);
+
 const setSliderParam = (minPrice)=>{
   priceSliderContainer.noUiSlider.updateOptions({
     range: {
@@ -104,9 +110,11 @@ setPriceFieldParam();
 
 forms.forEach((form)=>changeState(form, false));
 
-priceSliderContainer.noUiSlider.on('change', () => {
-  inputPrice.value = priceSliderContainer.noUiSlider.get();
-  pristine.validate(inputPrice);
+priceSliderContainer.noUiSlider.on('update', () => {
+  if (document.activeElement === priceSlider){
+    inputPrice.value = priceSliderContainer.noUiSlider.get();
+    pristine.validate(inputPrice);
+  }
 });
 
 inputPrice.addEventListener('input', ()=>{
@@ -166,7 +174,7 @@ adForm.addEventListener('submit', (evt)=>{
   }
 });
 
-export {fillAddress, adForm, filterForm,changeState};
+export {fillAddress, changeStateAdForm, changeStateFilterForm};
 
 //Это временный вспомогательный код
 inputTitle.value = 'Милая, уютная квартирка в центре Токио';

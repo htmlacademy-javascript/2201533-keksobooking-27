@@ -1,5 +1,5 @@
 import {
-  DATA_SIZE, FEATURES, SENTENCES, PHOTOS, TYPES, COORDINATES_PRECISION, CHECKS, BORDERS, PHOTO_COUNT, Title
+  DATA_SIZE, FEATURES, SENTENCES, PHOTOS, TYPES, COORDINATES_PRECISION, CHECKS, BORDERS, PHOTO_COUNT, TITLE
 } from './setings.js';
 import {
   getRandomElement, getRandomFloat, getRandomInt, getUniqRandomArray, newArray
@@ -25,7 +25,7 @@ const createItem = (num)=>{
       avatar: getAvatar(num + 1)
     },
     offer: {
-      title: Title.get(),
+      title: TITLE.get(),
       address: `${location.lat}, ${location.lng}`,
       price: getRandomInt(BORDERS.price.min, BORDERS.price.max),
       type: getRandomElement(TYPES),
