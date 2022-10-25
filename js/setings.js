@@ -1,4 +1,4 @@
-import {getRandomInt, newArray} from './utils.js';
+import {getRandomInt, newArray, roundFraction} from './utils.js';
 
 const DATA_SIZE = 10;
 const FEATURES = ['wifi', 'dishwasher', 'parking', 'washer', 'elevator', 'conditioner'];
@@ -77,7 +77,30 @@ const Title = {
 const words = new Map();
 words.set('символ',['символ', 'символа', 'символов']);
 
+const {lat, lng} = BORDERS.location;
+const MAP_CENTER = {
+  lat: roundFraction((lat.min + lat.max) / 2, COORDINATES_PRECISION),
+  lng: roundFraction((lng.min + lng.max) / 2, COORDINATES_PRECISION),
+};
+const MAP_ZOOM = 10;
+const PIN_SIZE = 40;
+const MAIN_PIN_SIZE = 52;
+const PIN_ICON = L.icon({
+  iconUrl: './img/pin.svg',
+  iconSize: [PIN_SIZE, PIN_SIZE],
+  iconAnchor: [PIN_SIZE / 2, PIN_SIZE],
+});
+const MAIN_PIN_ICON = L.icon({
+  iconUrl: './img/main-pin.svg',
+  iconSize: [MAIN_PIN_SIZE, MAIN_PIN_SIZE],
+  iconAnchor: [MAIN_PIN_SIZE / 2, MAIN_PIN_SIZE],
+});
+
+const STEP_PRICE = 100;
+const RADIX = 10;
 
 export {DATA_SIZE, FEATURES, SENTENCES, PHOTOS, TYPES, COORDINATES_PRECISION, CHECKS, BORDERS, PHOTO_COUNT, Title};
 export {TYPES_ATTRIBUTES};
 export {words};
+export {MAP_CENTER, MAP_ZOOM, PIN_ICON, MAIN_PIN_ICON};
+export {STEP_PRICE, RADIX};
