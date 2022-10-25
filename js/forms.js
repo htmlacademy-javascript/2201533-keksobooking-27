@@ -79,7 +79,6 @@ noUiSlider.create(priceSliderContainer, {
 });
 
 const priceSlider = priceSliderContainer.querySelector('.noUi-handle');
-console.log(priceSlider);
 
 const setSliderParam = (minPrice)=>{
   priceSliderContainer.noUiSlider.updateOptions({
