@@ -1,5 +1,5 @@
 import {declension, roundFraction} from './utils.js';
-import {TYPES_ATTRIBUTES, MAP_CENTER, COORDINATES_PRECISION, STEP_PRICE} from './setings.js';
+import {TYPES_ATTRIBUTES, MAP_CENTER, COORDINATES_PRECISION, STEP_PRICE, RADIX} from './setings.js';
 
 const PRISTINE_CONFIG = {
   classTo: 'classTo',
@@ -63,15 +63,15 @@ const pristine = new Pristine(adForm, PRISTINE_CONFIG);
 
 noUiSlider.create(priceSliderContainer, {
   range: {
-    min: parseInt(inputPrice.min),
-    max: parseInt(inputPrice.max),
+    min: parseInt(inputPrice.min, RADIX),
+    max: parseInt(inputPrice.max, RADIX),
   },
-  start: parseInt(inputPrice.min),
+  start: parseInt(inputPrice.min, RADIX),
   step: STEP_PRICE,
   connect: 'lower',
   format: {
     to: (value)=>value.toFixed(0),
-    from: (value)=>parseInt(value)
+    from: (value)=>parseInt(value, RADIX)
   },
 });
 
@@ -79,7 +79,7 @@ const setSliderParam = (minPrice)=>{
   priceSliderContainer.noUiSlider.updateOptions({
     range: {
       min: minPrice,
-      max: parseInt(inputPrice.max)
+      max: parseInt(inputPrice.max, RADIX)
     }
   });
 };
@@ -122,8 +122,8 @@ fieldTimes.addEventListener('change', (evt)=>
 );
 
 const validateGuests = ()=>{
-  const rooms = parseInt(selectRooms.selectedOptions[0].value);
-  const guests = parseInt(selectGuests.selectedOptions[0].value);
+  const rooms = parseInt(selectRooms.selectedOptions[0].value, RADIX);
+  const guests = parseInt(selectGuests.selectedOptions[0].value, RADIX);
   return (guests <= rooms && rooms !== LOT_OF_ROOMS && guests !== 0) || (guests === 0 && rooms === LOT_OF_ROOMS);
 };
 
@@ -135,7 +135,7 @@ const getGuestsErrorMessage = ()=>{
     options[option.value] = option.textContent;
   });
   const variants = [];
-  const rooms = parseInt(selectRooms.selectedOptions[0].value);
+  const rooms = parseInt(selectRooms.selectedOptions[0].value, RADIX);
   if (rooms === 100) {
     variants.push(options[0]);
   }

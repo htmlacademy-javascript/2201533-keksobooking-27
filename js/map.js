@@ -1,7 +1,7 @@
 import {MAIN_PIN_ICON, MAP_ZOOM, MAP_CENTER, PIN_ICON} from './setings.js';
 import {fillAddress, adForm, filterForm, changeState} from './forms.js';
-import {createData} from "./data.js";
-import {createCard} from "./cards-render.js";
+import {createData} from './data.js';
+import {createCard} from './cards-render.js';
 
 const map = L.map('map-canvas');
 
@@ -32,7 +32,7 @@ const createMarker = (ad)=>{
   marker
     .addTo(adLayer)
     .bindPopup(createCard(ad));
-}
+};
 
 const renderAds = (data)=>data.forEach((ad)=>createMarker(ad));
 
