@@ -1,27 +1,28 @@
-let removeEvents;
 const onEsc = (evt)=>{
   if (evt.key === 'Escape'){
-    removeEvents();
+    document.dispatchEvent(new Event('removeEvents'));
   }
 };
-const onClick = ()=>removeEvents();
+const onClick = ()=>document.dispatchEvent(new Event('removeEvents'));
 
-const addEvents = ()=>{
-  document.addEventListener('keydown', onEsc);
-  document.addEventListener('click', onClick);
-};
-
-removeEvents = ()=>{
+const removeEvents = ()=>{
   document.querySelector('#this_element_need_delete').remove();
   document.removeEventListener('keydown', onEsc);
   document.removeEventListener('click', onClick);
+  document.removeEventListener('removeEvents', removeEvents);
+};
+
+const addEvents = ()=>{
+  document.addEventListener('keydown', onEsc);
+  document.addEventListener('click', onClick, {once: true});
+  document.addEventListener('removeEvents', removeEvents);
 };
 
 const renderMessage = (fragment)=>{
   fragment.querySelector('div').id = 'this_element_need_delete';
   document.body.append(fragment);
   addEvents();
-};
+}
 const loadingDataError = (msg)=>{
   const template = document.querySelector('#error_load_ads').content;
   const error = template.cloneNode(true);
