@@ -3,7 +3,7 @@ const onEsc = (evt)=>{
     removeEvents();
   }
 };
-let onClick = ()=>removeEvents();
+const onClick = ()=>removeEvents();
 
 const addEvents = ()=>{
   document.addEventListener('keydown', onEsc);
