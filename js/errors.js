@@ -1,3 +1,4 @@
+let removeEvents;
 const onEsc = (evt)=>{
   if (evt.key === 'Escape'){
     removeEvents();
@@ -10,7 +11,7 @@ const addEvents = ()=>{
   document.addEventListener('click', onClick);
 };
 
-const removeEvents = ()=>{
+removeEvents = ()=>{
   document.querySelector('#this_element_need_delete').remove();
   document.removeEventListener('keydown', onEsc);
   document.removeEventListener('click', onClick);
