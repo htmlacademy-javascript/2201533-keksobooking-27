@@ -116,7 +116,7 @@ const setDefault = ()=>{
   fillAddress(MAP_CENTER);
   //Это временный вспомогательный код
   inputTitle.value = 'Текст заполнитель наименования';
-}
+};
 
 setDefault();
 resetButton.addEventListener('click', (evt)=>{
@@ -189,7 +189,7 @@ const onSuccessAdForm = ()=>{
 
 const onErrorAdForm = ()=>{
   submitError();
-}
+};
 
 adForm.addEventListener('submit', (evt)=>{
   evt.preventDefault();

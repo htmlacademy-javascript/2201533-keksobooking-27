@@ -1,8 +1,8 @@
-import {MAIN_PIN_ICON, MAP_ZOOM, MAP_CENTER, PIN_ICON, MAX_ADS} from './setings.js';
+import {MAIN_PIN_ICON, MAP_ZOOM, MAP_CENTER, PIN_ICON} from './setings.js';
 import {fillAddress, changeStateFilterForm, changeStateAdForm} from './forms.js';
-import {createData} from './trial-data.js';
+//import {createData} from './trial-data.js';
 import {createCard} from './cards-render.js';
-import {loadData} from "./real-data.js";
+import {loadData} from './real-data.js';
 
 const map = L.map('map-canvas');
 
@@ -36,8 +36,8 @@ const createMarker = (ad)=>{
 };
 
 const renderAds = (data)=>{
- data.forEach((ad=>createMarker(ad)));
- changeStateFilterForm(true);
+  data.forEach((ad)=>createMarker(ad));
+  changeStateFilterForm(true);
 };
 
 map.on('load', ()=>{

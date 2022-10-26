@@ -1,4 +1,4 @@
-import {DATA_URL, DATA_URL_CROOKED, SUBMIT_URL, MAX_ADS} from './setings.js';
+import {DATA_URL, SUBMIT_URL, MAX_ADS} from './setings.js';
 import {loadingDataError} from './errors.js';
 
 const loadData = (renderAds)=>{
@@ -10,7 +10,7 @@ const loadData = (renderAds)=>{
       }
       else{
         throw `status: ${response.status},
-          statusText: ${response.statusText}`
+          statusText: ${response.statusText}`;
       }
     })
     .then((data)=>renderAds(data.slice(0, MAX_ADS)))
@@ -31,6 +31,6 @@ const submitForm = (form, onSuccess, onError)=>{
         onError();
       }
     });
-}
+};
 
 export {loadData, submitForm};
