@@ -1,16 +1,16 @@
 const onEsc = (evt)=>{
   if (evt.key === 'Escape'){
-    document.dispatchEvent(new Event('removeEvents'));
+    removeEvents();
   }
 };
-const onClick = ()=>document.dispatchEvent(new Event('removeEvents'));
 
-const removeEvents = ()=>{
+const onClick = ()=>removeEvents();
+
+function removeEvents (){
   document.querySelector('#this_element_need_delete').remove();
   document.removeEventListener('keydown', onEsc);
   document.removeEventListener('click', onClick);
-  document.removeEventListener('removeEvents', removeEvents);
-};
+}
 
 const addEvents = ()=>{
   document.addEventListener('keydown', onEsc);
@@ -23,6 +23,7 @@ const renderMessage = (fragment)=>{
   document.body.append(fragment);
   addEvents();
 };
+
 const loadingDataError = (msg)=>{
   const template = document.querySelector('#error_load_ads').content;
   const error = template.cloneNode(true);
@@ -35,6 +36,7 @@ const submitSuccess = ()=>{
   const success = template.cloneNode(true);
   renderMessage(success);
 };
+
 const submitError = ()=>{
   const template = document.querySelector('#error').content;
   const error = template.cloneNode(true);

@@ -1,5 +1,4 @@
 import {TYPES_ATTRIBUTES} from './setings.js';
-import {getRandomElement} from './utils.js';
 
 const crutch = document.createElement('div');
 
@@ -52,15 +51,12 @@ const createCard = (data)=>{
     });
     photoTemplate.remove();
   }
-  crutch.append(card);
+  //console.log(card);
+  /*crutch.append(card);
   const cardText = crutch.innerHTML;
   crutch.innerHTML = '';
-  return cardText;
+  return cardText;*/
+  return card;
 };
 
-const renderRandomCard = (cards)=>{
-  const canvas = document.querySelector('#map-canvas');
-  canvas.append(createCard(getRandomElement(cards)));
-};
-
-export {createCard, renderRandomCard};
+export {createCard};

@@ -100,7 +100,6 @@ const MAIN_PIN_ICON = {
 const STEP_PRICE = 100;
 const RADIX = 10;
 const DATA_URL = 'https://27.javascript.pages.academy/keksobooking/data';
-const DATA_URL_CROOKED = 'https://27.javascript.pages.academy/keksoboo_king/data';
 const MAX_ADS = 10;
 const SUBMIT_URL = 'https://27.javascript.pages.academy/keksobooking';
 
@@ -110,4 +109,4 @@ export {TYPES_ATTRIBUTES};
 export {WORDS};
 export {MAP_CENTER, MAP_ZOOM, PIN_ICON, MAIN_PIN_ICON};
 export {STEP_PRICE, RADIX};
-export {DATA_URL, DATA_URL_CROOKED, MAX_ADS, SUBMIT_URL};
+export {DATA_URL, MAX_ADS, SUBMIT_URL};
