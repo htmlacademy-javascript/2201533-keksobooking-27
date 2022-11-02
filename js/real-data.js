@@ -1,5 +1,6 @@
-import {DATA_URL, MAX_ADS, SUBMIT_URL} from './setings.js';
+import {DATA_URL, SUBMIT_URL} from './setings.js';
 import {loadingDataError} from './errors.js';
+import {getFilteredData, setData} from './filters.js';
 
 const loadData = (renderAds)=>
   fetch(DATA_URL)
@@ -10,7 +11,7 @@ const loadData = (renderAds)=>
       throw `status: ${response.status},
         statusText: ${response.statusText}`;
     })
-    .then((data)=>renderAds(data.slice(0, MAX_ADS)))
+    .then(setData)
     .catch(loadingDataError);
 
 

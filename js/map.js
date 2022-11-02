@@ -44,7 +44,8 @@ const renderAds = (data)=>{
 
 map.on('load', ()=>{
   changeStateAdForm(true);
-  loadData(renderAds);
+  loadData()
+    .then(renderAds);
 })
   .setView(MAP_CENTER, MAP_ZOOM);
 
