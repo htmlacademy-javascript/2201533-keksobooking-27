@@ -1,5 +1,6 @@
 import {TYPES_ATTRIBUTES} from './setings.js';
-import {getRandomElement} from './utils.js';
+
+//const crutch = document.createElement('div');
 
 const fillBlock = (card, value, classStr, prop = 'textContent')=>{
   const block = card.querySelector(classStr);
@@ -46,16 +47,16 @@ const createCard = (data)=>{
     photos.forEach((photo)=>{
       const photoImg = photoTemplate.cloneNode(false);
       photoImg.src = photo;
-      photoContainer.appendChild(photoImg);
+      photoContainer.append(photoImg);
     });
     photoTemplate.remove();
   }
+  //console.log(card);
+  /*crutch.append(card);
+  const cardText = crutch.innerHTML;
+  crutch.innerHTML = '';
+  return cardText;*/
   return card;
 };
 
-const renderRandomCard = (cards)=>{
-  const canvas = document.querySelector('#map-canvas');
-  canvas.appendChild(createCard(getRandomElement(cards)));
-};
-
-export {createCard, renderRandomCard};
+export {createCard};

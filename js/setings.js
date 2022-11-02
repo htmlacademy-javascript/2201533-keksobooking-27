@@ -97,22 +97,16 @@ const MAIN_PIN_ICON = {
   iconAnchor: [MAIN_PIN_SIZE / 2, MAIN_PIN_SIZE],
 };
 
-/*const PIN_ICON = L.icon({
-  iconUrl: './img/pin.svg',
-  iconSize: [PIN_SIZE, PIN_SIZE],
-  iconAnchor: [PIN_SIZE / 2, PIN_SIZE],
-});
-const MAIN_PIN_ICON = L.icon({
-  iconUrl: './img/main-pin.svg',
-  iconSize: [MAIN_PIN_SIZE, MAIN_PIN_SIZE],
-  iconAnchor: [MAIN_PIN_SIZE / 2, MAIN_PIN_SIZE],
-});*/
-
 const STEP_PRICE = 100;
 const RADIX = 10;
+const DATA_URL = 'https://27.javascript.pages.academy/keksobooking/data';
+const MAX_ADS = 10;
+const SUBMIT_URL = 'https://27.javascript.pages.academy/keksobooking';
+
 
 export {DATA_SIZE, FEATURES, SENTENCES, PHOTOS, TYPES, COORDINATES_PRECISION, CHECKS, BORDERS, PHOTO_COUNT, TITLE};
 export {TYPES_ATTRIBUTES};
 export {WORDS};
 export {MAP_CENTER, MAP_ZOOM, PIN_ICON, MAIN_PIN_ICON};
 export {STEP_PRICE, RADIX};
+export {DATA_URL, MAX_ADS, SUBMIT_URL};

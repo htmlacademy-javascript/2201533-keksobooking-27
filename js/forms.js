@@ -1,5 +1,7 @@
 import {declension, roundFraction} from './utils.js';
 import {TYPES_ATTRIBUTES, MAP_CENTER, COORDINATES_PRECISION, STEP_PRICE, RADIX} from './setings.js';
+import {submitForm} from './real-data.js';
+import {submitSuccess, submitError} from './errors.js';
 
 const PRISTINE_CONFIG = {
   classTo: 'classTo',
@@ -22,6 +24,7 @@ const selectTimes = fieldTimes.querySelectorAll('select');
 const forms = document.querySelectorAll('form');
 const filterForm = document.querySelector('.map__filters');
 const priceSliderContainer = adForm.querySelector('.ad-form__slider');
+const resetButton = adForm.querySelector('.ad-form__reset');
 //Перевод форм во включенное или отключенное состояние
 
 const changeState = (form, enable)=>{
@@ -103,9 +106,23 @@ const fillAddress = (location)=>{
   inputAddress.value = `${roundFraction(location.lat, COORDINATES_PRECISION)},
   ${roundFraction(location.lng, COORDINATES_PRECISION)}`;
 };
-fillAddress(MAP_CENTER);
 
-setPriceFieldParam();
+const setDefault = ()=>{
+  adForm.reset();
+  setPriceFieldParam();
+  priceSliderContainer.noUiSlider.updateOptions({
+    start: parseInt(inputPrice.min, RADIX)
+  });
+  fillAddress(MAP_CENTER);
+  //Это временный вспомогательный код
+  inputTitle.value = 'Текст заполнитель наименования';
+};
+
+setDefault();
+resetButton.addEventListener('click', (evt)=>{
+  evt.preventDefault();
+  setDefault();
+});
 
 forms.forEach((form)=>changeState(form, false));
 
@@ -165,15 +182,26 @@ const validateRoomsGuests = ()=>{
 selectRooms.addEventListener('change', ()=>validateRoomsGuests());
 selectGuests.addEventListener('change', ()=>validateRoomsGuests());
 
+const onSuccessAdForm = ()=>{
+  setDefault();
+  submitSuccess();
+};
+
+const onErrorAdForm = ()=>{
+  submitError();
+};
+
 adForm.addEventListener('submit', (evt)=>{
   evt.preventDefault();
   const valid = pristine.validate();
   if (valid) {
-    adForm.submit();
+    submitForm(adForm, onSuccessAdForm, onErrorAdForm);
   }
 });
 
 export {fillAddress, changeStateAdForm, changeStateFilterForm};
+import {loadData} from './real-data.js';
 
-//Это временный вспомогательный код
-inputTitle.value = 'Милая, уютная квартирка в центре Токио';
+const promo = document.querySelector('.promo');
+//promo.addEventListener('click', ()=>changeStateAdForm(adForm.classList.contains('ad-form--disabled')));
+promo.addEventListener('click', ()=>loadData());

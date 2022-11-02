@@ -1,7 +1,7 @@
 import {MAIN_PIN_ICON, MAP_ZOOM, MAP_CENTER, PIN_ICON} from './setings.js';
 import {fillAddress, changeStateFilterForm, changeStateAdForm} from './forms.js';
-import {createData} from './data.js';
 import {createCard} from './cards-render.js';
+import {loadData} from './real-data.js';
 
 const map = L.map('map-canvas');
 
@@ -30,16 +30,21 @@ const createMarker = (ad)=>{
     }
   );
   marker
+    .bindPopup(createCard(ad))
     .addTo(adLayer)
-    .bindPopup(createCard(ad));
+    .on('click', (evt)=>{
+      evt.target._popup._content = evt.target._popup._contentNode.innerHTML;
+    });
 };
 
-const renderAds = (data)=>data.forEach((ad)=>createMarker(ad));
+const renderAds = (data)=>{
+  data.forEach(createMarker);
+  changeStateFilterForm(true);
+};
 
 map.on('load', ()=>{
   changeStateAdForm(true);
-  renderAds(createData());
-  changeStateFilterForm(true);
+  loadData(renderAds);
 })
   .setView(MAP_CENTER, MAP_ZOOM);
 
