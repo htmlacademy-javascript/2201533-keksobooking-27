@@ -34,8 +34,7 @@ const createMarker = (ad)=>{
     .addTo(adLayer)
     .on('click', (evt)=>{
       evt.target._popup._content = evt.target._popup._contentNode.innerHTML;
-    }
-  );
+    });
 };
 
 const renderAds = (data)=>{

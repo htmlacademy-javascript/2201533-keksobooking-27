@@ -1,6 +1,6 @@
 import {TYPES_ATTRIBUTES} from './setings.js';
 
-const crutch = document.createElement('div');
+//const crutch = document.createElement('div');
 
 const fillBlock = (card, value, classStr, prop = 'textContent')=>{
   const block = card.querySelector(classStr);
