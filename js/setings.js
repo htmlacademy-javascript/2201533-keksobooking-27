@@ -90,6 +90,7 @@ const PIN_ICON = {
   iconUrl: './img/pin.svg',
   iconSize: [PIN_SIZE, PIN_SIZE],
   iconAnchor: [PIN_SIZE / 2, PIN_SIZE],
+  popupAnchor: [0,-PIN_SIZE / 2]
 };
 const MAIN_PIN_ICON = {
   iconUrl: './img/main-pin.svg',

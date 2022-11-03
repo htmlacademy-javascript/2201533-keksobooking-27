@@ -33,11 +33,13 @@ const createMarker = (ad)=>{
     .bindPopup(createCard(ad))
     .addTo(adLayer)
     .on('click', (evt)=>{
-      evt.target._popup._content = evt.target._popup._contentNode.innerHTML;
+      //      evt.target._popup._content = evt.target._popup._contentNode.innerHTML;
     });
+  console.log(marker);
 };
 
 const renderAds = (data)=>{
+
   data.forEach(createMarker);
   changeStateFilterForm(true);
 };

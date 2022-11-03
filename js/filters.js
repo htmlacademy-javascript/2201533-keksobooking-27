@@ -84,61 +84,42 @@ const setData = (data)=>{
     return data.slice(0, MAX_ADS);
 };
 
-/*offer:
-  features:
-    Array(4)
-      0: "washer"
-      1: "elevator"
-      2: "wifi"
-      3: "dishwasher"
-  guests: 2
-  price: 35000
-  rooms: 3
-  type: "palace"*/
-
-const compareData = (dat)=>{
+const compareData = (ad)=>{
   for(const key in Filter.filter){
-    console.log(key);
     switch (key){
       case (PRICE):{
-        console.log(Filter.filter.price);
         switch(Filter.filter.price){
           case('low'):{
-
-            if (dat.offer.price > Filter.prices.low){
+            if (ad.offer.price > Filter.prices.low){
               return false;
             }
             break;
           }
           case('high'):{
-            if (dat.offer.price < Filter.prices.high){
+            if (ad.offer.price < Filter.prices.high){
               return false;
             }
             break;
           }
           case('middle'):{
-            if (dat.offer.price < Filter.prices.middle.min || dat.offer.price > Filter.prices.middle.max){
+            if (ad.offer.price < Filter.prices.middle.min || ad.offer.price > Filter.prices.middle.max){
               return false;
             }
             break;
           }
         }
-        //console.log(`${key}: ${Filter.filter[key]}`);
         break;
       }
       case (FEATURES):{
         for(const keyF in Filter.features){
-          console.log(`${keyF}: ${dat.offer.features.includes(keyF)}`);
-          if (!dat.offer.features.includes(keyF)){
+          if (!ad.offer.features.includes(keyF)){
             return false;
           }
         }
         break;
       }
       default:{
-        console.log(`filter: ${Filter.filter[key]}, data: ${dat.offer[key]} итог:${Filter.filter[key] ===
-        dat.offer[key].toString()}`);
-        if(Filter.filter[key] !== dat.offer[key].toString()){
+        if(Filter.filter[key] !== ad.offer[key].toString()){
           return false;
         }
       }
@@ -148,13 +129,17 @@ const compareData = (dat)=>{
 };
 
 const getFilteredData = (evt)=>{
+  const popup = document.querySelector('.leaflet-popup-content');
+  if (popup){
+    popup.hidden = true;
+  }
   setFilter(evt.target);
-  const dat = Filter.data[1];
+  return Filter.data.filter(compareData).slice(0, MAX_ADS);
+  /*const dat = Filter.data[1];
   console.log('----------------------------------------');
   console.log(Filter.filter);
   console.log(dat);
-//  console.log(dat.offer.features);
-  console.log(compareData(dat));
+  console.log(compareData(dat));*/
   //return data.slice(0, MAX_ADS);
 };
 

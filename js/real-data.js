@@ -1,6 +1,6 @@
 import {DATA_URL, SUBMIT_URL} from './setings.js';
 import {loadingDataError} from './errors.js';
-import {getFilteredData, setData} from './filters.js';
+import {setData} from './filters.js';
 
 const loadData = (renderAds)=>
   fetch(DATA_URL)
