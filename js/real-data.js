@@ -1,8 +1,11 @@
 import {DATA_URL, SUBMIT_URL} from './setings.js';
 import {loadingDataError} from './errors.js';
-import {setData} from './filters.js';
 
-const loadData = (renderAds)=>
+let data = [];
+
+const setData = (res)=>data = res;
+
+const loadData = ()=>
   fetch(DATA_URL)
     .then((response)=>{
       if (response.ok){
@@ -30,4 +33,6 @@ const submitForm = (form, onSuccess, onError)=>{
     });
 };
 
-export {loadData, submitForm};
+const getData = ()=>data;
+
+export {loadData, submitForm, getData};

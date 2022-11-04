@@ -1,4 +1,8 @@
-import {MAX_ADS} from './setings.js';
+import {renderAds} from './map.js';
+import {changeState} from './forms.js';
+import {throttle} from './utils.js';
+import {DELAY_BETWEEN_RENDER_ADS} from './setings.js';
+
 const ID_PREF = 'housing-';
 const ANY = 'any';
 const PRICE = 'price';
@@ -8,11 +12,11 @@ const lenIdPref = ID_PREF.length;
 const inputs = filterForm.querySelectorAll('select, input');
 const price = filterForm.querySelector('#housing-price');
 const prices = price.querySelectorAll('option');
+const changeStateFilterForm = (enable)=>changeState(filterForm, enable);
 
 const Filter = {
   filter: {},
   features: {},
-  data: [],
   prices: {
     low: 0,
     high: 0,
@@ -79,11 +83,6 @@ setPrices();
 
 console.log(Filter.prices);
 
-const setData = (data)=>{
-    Filter.data = data;
-    return data.slice(0, MAX_ADS);
-};
-
 const compareData = (ad)=>{
   for(const key in Filter.filter){
     switch (key){
@@ -112,7 +111,7 @@ const compareData = (ad)=>{
       }
       case (FEATURES):{
         for(const keyF in Filter.features){
-          if (!ad.offer.features.includes(keyF)){
+          if (!ad.offer.features || !ad.offer.features.includes(keyF)){
             return false;
           }
         }
@@ -128,21 +127,11 @@ const compareData = (ad)=>{
   return true;
 };
 
-const getFilteredData = (evt)=>{
-  const popup = document.querySelector('.leaflet-popup-content');
-  if (popup){
-    popup.hidden = true;
-  }
+const wrapper = throttle(renderAds, DELAY_BETWEEN_RENDER_ADS);
+
+filterForm.addEventListener('change', (evt)=>{
   setFilter(evt.target);
-  return Filter.data.filter(compareData).slice(0, MAX_ADS);
-  /*const dat = Filter.data[1];
-  console.log('----------------------------------------');
-  console.log(Filter.filter);
-  console.log(dat);
-  console.log(compareData(dat));*/
-  //return data.slice(0, MAX_ADS);
-};
+  wrapper();
+});
 
-filterForm.addEventListener('change', getFilteredData);
-
-export {setData, getFilteredData};
+export {compareData, changeStateFilterForm};

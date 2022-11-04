@@ -51,12 +51,12 @@ const createCard = (data)=>{
     });
     photoTemplate.remove();
   }
-  //console.log(card);
-  /*crutch.append(card);
-  const cardText = crutch.innerHTML;
-  crutch.innerHTML = '';
-  return cardText;*/
-  return card;
+  const cardInner = ()=>{
+    const crutch = document.createElement('div');
+    crutch.append(card);
+    return crutch.innerHTML;
+  };
+  return cardInner();
 };
 
 export {createCard};

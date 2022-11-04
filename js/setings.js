@@ -104,6 +104,7 @@ const DATA_URL = 'https://27.javascript.pages.academy/keksobooking/data';
 const MAX_ADS = 10;
 const SUBMIT_URL = 'https://27.javascript.pages.academy/keksobooking';
 
+const DELAY_BETWEEN_RENDER_ADS = 500;
 
 export {DATA_SIZE, FEATURES, SENTENCES, PHOTOS, TYPES, COORDINATES_PRECISION, CHECKS, BORDERS, PHOTO_COUNT, TITLE};
 export {TYPES_ATTRIBUTES};
@@ -111,3 +112,4 @@ export {WORDS};
 export {MAP_CENTER, MAP_ZOOM, PIN_ICON, MAIN_PIN_ICON};
 export {STEP_PRICE, RADIX};
 export {DATA_URL, MAX_ADS, SUBMIT_URL};
+export {DELAY_BETWEEN_RENDER_ADS};

@@ -1,5 +1,12 @@
 import {declension, roundFraction} from './utils.js';
-import {TYPES_ATTRIBUTES, MAP_CENTER, COORDINATES_PRECISION, STEP_PRICE, RADIX} from './setings.js';
+import {
+  TYPES_ATTRIBUTES,
+  MAP_CENTER,
+  COORDINATES_PRECISION,
+  STEP_PRICE,
+  RADIX,
+  DELAY_BETWEEN_RENDER_ADS
+} from './setings.js';
 import {submitForm} from './real-data.js';
 import {submitSuccess, submitError} from './errors.js';
 
@@ -22,7 +29,6 @@ const inputTitle = adForm.querySelector('#title');
 const fieldTimes = adForm.querySelector('.ad-form__element--time');
 const selectTimes = fieldTimes.querySelectorAll('select');
 const forms = document.querySelectorAll('form');
-const filterForm = document.querySelector('.map__filters');
 const priceSliderContainer = adForm.querySelector('.ad-form__slider');
 const resetButton = adForm.querySelector('.ad-form__reset');
 //Перевод форм во включенное или отключенное состояние
@@ -40,7 +46,7 @@ const changeState = (form, enable)=>{
 };
 
 const changeStateAdForm = (enable)=>changeState(adForm, enable);
-const changeStateFilterForm = (enable)=>changeState(filterForm, enable);
+
 
 //Это для пристины
 
@@ -199,9 +205,33 @@ adForm.addEventListener('submit', (evt)=>{
   }
 });
 
-export {fillAddress, changeStateAdForm, changeStateFilterForm};
-import {loadData} from './real-data.js';
+export {fillAddress, changeStateAdForm, changeState};
+
+
+
+import {throttle} from './utils.js';
+const promoF = ()=>{
+  let i = 0;
+  const types = ['any','bungalow','flat','hotel','house','palace'];
+  const event = new Event('change', {bubbles: true});
+  const type = document.querySelector('#housing-type');
+  //type.value = 'house';
+  let oldDate = Date.now();
+  const interval = setInterval(()=>{
+    let date = Date.now();
+    console.log(`событие: ${date - oldDate}`);
+    oldDate = date;
+    type.value = types[i % 6];
+    type.dispatchEvent(event);
+    i++;
+    if (i > 10){clearInterval(interval)}
+  },DELAY_BETWEEN_RENDER_ADS / 2);
+
+
+  /*throttle(()=>{
+    console.log('promo')
+  }, DELAY_BETWEEN_RENDER_ADS)()*/
+};
 
 const promo = document.querySelector('.promo');
-//promo.addEventListener('click', ()=>changeStateAdForm(adForm.classList.contains('ad-form--disabled')));
-promo.addEventListener('click', ()=>loadData());
+promo.addEventListener('click', promoF);
