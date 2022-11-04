@@ -208,30 +208,24 @@ adForm.addEventListener('submit', (evt)=>{
 export {fillAddress, changeStateAdForm, changeState};
 
 
-
-import {throttle} from './utils.js';
-const promoF = ()=>{
+/*const promoF = ()=>{
   let i = 0;
   const types = ['any','bungalow','flat','hotel','house','palace'];
   const event = new Event('change', {bubbles: true});
   const type = document.querySelector('#housing-type');
-  //type.value = 'house';
   let oldDate = Date.now();
   const interval = setInterval(()=>{
-    let date = Date.now();
+    const date = Date.now();
     console.log(`событие: ${date - oldDate}`);
     oldDate = date;
     type.value = types[i % 6];
     type.dispatchEvent(event);
     i++;
-    if (i > 10){clearInterval(interval)}
+    if (i > 10){
+      clearInterval(interval);
+    }
   },DELAY_BETWEEN_RENDER_ADS / 2);
-
-
-  /*throttle(()=>{
-    console.log('promo')
-  }, DELAY_BETWEEN_RENDER_ADS)()*/
 };
 
 const promo = document.querySelector('.promo');
-promo.addEventListener('click', promoF);
+promo.addEventListener('click', promoF);*/

@@ -35,16 +35,16 @@ const setPrices = ()=>{
         break;
       }
       case ('middle'):{
-        Filter.prices.middle.min = parseInt(text);
-        Filter.prices.middle.max = parseInt(text.substring(text.indexOf('-') + 1));
+        Filter.prices.middle.min = parseInt(text, 10);
+        Filter.prices.middle.max = parseInt(text.substring(text.indexOf('-') + 1), 10);
         break;
       }
       default:{
-        Filter.prices[option.value] = parseInt(text.substring(text.indexOf(' ')));
+        Filter.prices[option.value] = parseInt(text.substring(text.indexOf(' ')), 10);
       }
     }
-  })
-}
+  });
+};
 
 const setFilter = (element)=>{
   switch (element.tagName){
@@ -55,7 +55,7 @@ const setFilter = (element)=>{
       else{
         Filter.filter[element.id.substring(lenIdPref)] = element.value;
       }
-    break;
+      break;
     case 'INPUT':
       if (element.type === 'checkbox' && element.checked){
         Filter.features[element.value] = true;
@@ -69,19 +69,17 @@ const setFilter = (element)=>{
       else{
         delete (Filter.filter.features);
       }
-    break;
+      break;
     default:
   }
 };
 
 const setAll = ()=>{
-  inputs.forEach((val)=>{setFilter(val)});
+  inputs.forEach((val)=>setFilter(val));
 };
 
 setAll();
 setPrices();
-
-console.log(Filter.prices);
 
 const compareData = (ad)=>{
   for(const key in Filter.filter){
