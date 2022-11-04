@@ -36,7 +36,7 @@ const createMarker = (ad)=>{
     .bindPopup(createCard(ad))
     .addTo(adLayer)
     .on('popupopen', (evt)=>{
-      currentMarker = evt.target
+      currentMarker = evt.target;
     })
     .on('popupclose', (evt)=>{
       if (evt.target === currentMarker){

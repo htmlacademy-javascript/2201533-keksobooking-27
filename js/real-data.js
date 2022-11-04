@@ -4,7 +4,7 @@ import {loadingDataError} from './errors.js';
 let data = [];
 
 const setData = (res)=>{
-  data = res
+  data = res;
 };
 
 const loadData = ()=>

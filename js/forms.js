@@ -5,7 +5,6 @@ import {
   COORDINATES_PRECISION,
   STEP_PRICE,
   RADIX,
-  DELAY_BETWEEN_RENDER_ADS
 } from './setings.js';
 import {submitForm} from './real-data.js';
 import {submitSuccess, submitError} from './errors.js';
