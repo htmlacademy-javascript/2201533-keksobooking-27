@@ -1,12 +1,13 @@
+const ESC_KEY = 'Escape';
 const onEsc = (evt)=>{
-  if (evt.key === 'Escape'){
-    removeEvents();
+  if (evt.key === ESC_KEY){
+    onRemoveEvents();
   }
 };
 
-const onClick = ()=>removeEvents();
+const onClick = ()=>onRemoveEvents();
 
-function removeEvents (){
+function onRemoveEvents (){
   document.querySelector('#this_element_need_delete').remove();
   document.removeEventListener('keydown', onEsc);
   document.removeEventListener('click', onClick);
@@ -15,7 +16,7 @@ function removeEvents (){
 const addEvents = ()=>{
   document.addEventListener('keydown', onEsc);
   document.addEventListener('click', onClick, {once: true});
-  document.addEventListener('removeEvents', removeEvents);
+  document.addEventListener('removeEvents', onRemoveEvents);
 };
 
 const renderMessage = (fragment)=>{
@@ -24,23 +25,23 @@ const renderMessage = (fragment)=>{
   addEvents();
 };
 
-const loadingDataError = (msg)=>{
+const renderLoadingDataError = (msg)=>{
   const template = document.querySelector('#error_load_ads').content;
   const error = template.cloneNode(true);
   error.querySelector('.error__message').textContent = msg;
   renderMessage(error);
 };
 
-const submitSuccess = ()=>{
+const renderSubmitSuccess = ()=>{
   const template = document.querySelector('#success').content;
   const success = template.cloneNode(true);
   renderMessage(success);
 };
 
-const submitError = ()=>{
+const renderSubmitError = ()=>{
   const template = document.querySelector('#error').content;
   const error = template.cloneNode(true);
   renderMessage(error);
 };
 
-export {loadingDataError, submitError, submitSuccess};
+export {renderLoadingDataError, renderSubmitError, renderSubmitSuccess};

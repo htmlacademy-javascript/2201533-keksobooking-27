@@ -1,6 +1,7 @@
-import {declension} from './utils.js';
+import {declineNouns} from './utils.js';
 import {setDefaultFilters} from './filters.js';
 import {setDefaultMap} from './map.js';
+import {setDefaultPhoto} from './photos.js';
 import {
   TYPES_ATTRIBUTES,
   MAP_CENTER,
@@ -9,7 +10,7 @@ import {
   RADIX,
 } from './setings.js';
 import {submitForm} from './real-data.js';
-import {submitSuccess, submitError} from './errors.js';
+import {renderSubmitSuccess, renderSubmitError} from './errors.js';
 
 const PRISTINE_CONFIG = {
   classTo: 'classTo',
@@ -60,11 +61,11 @@ adForm.querySelectorAll('input').forEach((e)=>{
   }
   if (e.minLength > -1){
     e.dataset.pristineMinlengthMessage =
-      `Минимальная длина ${e.minLength}  ${declension(e.minLength, 'символ')}`;
+      `Минимальная длина ${e.minLength}  ${declineNouns(e.minLength, 'символ')}`;
   }
   if (e.maxLength > -1){
     e.dataset.pristineMaxlengthMessage =
-      `Максимальная длина ${e.minLength}  ${declension(e.maxLength, 'символ')}`;
+      `Максимальная длина ${e.minLength}  ${declineNouns(e.maxLength, 'символ')}`;
   }
   if (e.max !== ''){
     e.dataset.pristineMaxMessage =
@@ -123,6 +124,7 @@ const setDefault = ()=>{
   fillAddress(MAP_CENTER);
   setDefaultFilters();
   setDefaultMap();
+  setDefaultPhoto()
 };
 
 fillAddress(MAP_CENTER);
@@ -167,7 +169,7 @@ const getGuestsErrorMessage = ()=>{
   });
   const variants = [];
   const rooms = parseInt(selectRooms.selectedOptions[0].value, RADIX);
-  if (rooms === 100) {
+  if (rooms === LOT_OF_ROOMS) {
     variants.push(options[0]);
   }
   else{
@@ -192,11 +194,11 @@ selectGuests.addEventListener('change', ()=>validateRoomsGuests());
 const onSuccessAdForm = ()=>{
   submitButton.classList.remove('ad-form--disabled');
   setDefault();
-  submitSuccess();
+  renderSubmitSuccess();
 };
 
 const onErrorAdForm = ()=>{
-  submitError();
+  renderSubmitError();
 };
 
 adForm.addEventListener('submit', (evt)=>{

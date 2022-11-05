@@ -59,7 +59,7 @@ const renderAds = ()=>{
 
 mainMarker.addTo(map);
 
-mainMarker.on('moveend', (evt) => {
+mainMarker.on('move', (evt) => {
   fillAddress(evt.target.getLatLng());
 });
 

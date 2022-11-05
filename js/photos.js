@@ -3,11 +3,20 @@ const FILE_TYPES = ['jpg', 'jpeg', 'png', 'svg', 'ico', 'bmp', 'gif'];
 const elements = {
   avatar: {
     preview: document.querySelector('.ad-form-header__preview img'),
-    input: document.querySelector('#avatar')
+    input: document.querySelector('#avatar'),
+    default: function(){
+      this.preview.src = 'img/muffin-grey.svg';
+    }
   },
   images: {
     preview: document.querySelector('.ad-form__photo'),
-    input: document.querySelector('#images')
+    input: document.querySelector('#images'),
+    default: function(){
+      const img = this.preview.querySelector('IMG')
+      if(img){
+        img.remove();
+      }
+    }
   },
 };
 
@@ -34,7 +43,15 @@ const setImage = (evt)=>{
   }
 };
 
+const setDefaultPhoto = ()=>{
+  for (const key in elements){
+    elements[key].default();
+  }
+};
+
 for (const key in elements){
   elements[key].input.accept = `image/${FILE_TYPES.join(', image/')}`;
   elements[key].input.addEventListener('change', setImage);
 }
+
+export {setDefaultPhoto};

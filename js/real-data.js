@@ -1,5 +1,5 @@
 import {DATA_URL, SUBMIT_URL} from './setings.js';
-import {loadingDataError} from './errors.js';
+import {renderLoadingDataError} from './errors.js';
 
 let data = [];
 
@@ -17,7 +17,7 @@ const loadData = ()=>
         statusText: ${response.statusText}`;
     })
     .then(setData)
-    .catch(loadingDataError);
+    .catch(renderLoadingDataError);
 
 
 const submitForm = (form, onSuccess, onError)=>{
