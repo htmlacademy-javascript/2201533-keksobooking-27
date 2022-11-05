@@ -1,4 +1,6 @@
-import {declension, roundFraction} from './utils.js';
+import {declension} from './utils.js';
+import {setDefaultFilters} from './filters.js';
+import {setDefaultMap} from './map.js';
 import {
   TYPES_ATTRIBUTES,
   MAP_CENTER,
@@ -24,12 +26,12 @@ const inputPrice = adForm.querySelector('#price');
 const selectRooms = adForm.querySelector('#room_number');
 const selectGuests = adForm.querySelector('#capacity');
 const inputAddress = adForm.querySelector('#address');
-const inputTitle = adForm.querySelector('#title');
 const fieldTimes = adForm.querySelector('.ad-form__element--time');
 const selectTimes = fieldTimes.querySelectorAll('select');
 const forms = document.querySelectorAll('form');
 const priceSliderContainer = adForm.querySelector('.ad-form__slider');
 const resetButton = adForm.querySelector('.ad-form__reset');
+const submitButton = adForm.querySelector('.ad-form__element--submit');
 //Перевод форм во включенное или отключенное состояние
 
 const changeState = (form, enable)=>{
@@ -108,8 +110,8 @@ const setPriceFieldParam = ()=>{
 };
 
 const fillAddress = (location)=>{
-  inputAddress.value = `${roundFraction(location.lat, COORDINATES_PRECISION)},
-  ${roundFraction(location.lng, COORDINATES_PRECISION)}`;
+  inputAddress.value = `${location.lat.toFixed(COORDINATES_PRECISION)},
+  ${location.lng.toFixed(COORDINATES_PRECISION)}`;
 };
 
 const setDefault = ()=>{
@@ -119,11 +121,11 @@ const setDefault = ()=>{
     start: parseInt(inputPrice.min, RADIX)
   });
   fillAddress(MAP_CENTER);
-  //Это временный вспомогательный код
-  inputTitle.value = 'Текст заполнитель наименования';
+  setDefaultFilters();
+  setDefaultMap();
 };
 
-setDefault();
+fillAddress(MAP_CENTER);
 resetButton.addEventListener('click', (evt)=>{
   evt.preventDefault();
   setDefault();
@@ -188,6 +190,7 @@ selectRooms.addEventListener('change', ()=>validateRoomsGuests());
 selectGuests.addEventListener('change', ()=>validateRoomsGuests());
 
 const onSuccessAdForm = ()=>{
+  submitButton.classList.remove('ad-form--disabled');
   setDefault();
   submitSuccess();
 };
@@ -197,34 +200,13 @@ const onErrorAdForm = ()=>{
 };
 
 adForm.addEventListener('submit', (evt)=>{
+  console.log('submit');
   evt.preventDefault();
   const valid = pristine.validate();
   if (valid) {
+    submitButton.classList.add('ad-form--disabled');
     submitForm(adForm, onSuccessAdForm, onErrorAdForm);
   }
 });
 
 export {fillAddress, changeStateAdForm, changeState};
-
-
-/*const promoF = ()=>{
-  let i = 0;
-  const types = ['any','bungalow','flat','hotel','house','palace'];
-  const event = new Event('change', {bubbles: true});
-  const type = document.querySelector('#housing-type');
-  let oldDate = Date.now();
-  const interval = setInterval(()=>{
-    const date = Date.now();
-    console.log(`событие: ${date - oldDate}`);
-    oldDate = date;
-    type.value = types[i % 6];
-    type.dispatchEvent(event);
-    i++;
-    if (i > 10){
-      clearInterval(interval);
-    }
-  },DELAY_BETWEEN_RENDER_ADS / 2);
-};
-
-const promo = document.querySelector('.promo');
-promo.addEventListener('click', promoF);*/

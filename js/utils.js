@@ -62,6 +62,15 @@ const declension = (number, word)=>{
   return WORDS.get(word)[2];
 };
 
+function debounce (callback, timeoutDelay = 500) {
+  let timeoutId;
+  return (...rest) => {
+    clearTimeout(timeoutId);
+    timeoutId = setTimeout(() => callback.apply(this, rest), timeoutDelay);
+  };
+}
+
+
 function throttle (callback, delayBetweenFrames) {
   let lastTime = 0;
   return (...rest)=>{
@@ -77,4 +86,4 @@ function throttle (callback, delayBetweenFrames) {
 export {getRandomFloat, getRandomInt, getUniqRandomArray, getRandomElement, newArray};
 export {declension};
 export {roundFraction};
-export {throttle};
+export {throttle, debounce};

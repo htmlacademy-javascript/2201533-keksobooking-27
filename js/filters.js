@@ -1,6 +1,6 @@
 import {renderAds} from './map.js';
 import {changeState} from './forms.js';
-import {throttle} from './utils.js';
+import {debounce} from './utils.js';
 import {DELAY_BETWEEN_RENDER_ADS} from './setings.js';
 
 const ID_PREF = 'housing-';
@@ -9,7 +9,7 @@ const PRICE = 'price';
 const FEATURES = 'features';
 const filterForm = document.querySelector('.map__filters');
 const lenIdPref = ID_PREF.length;
-const inputs = filterForm.querySelectorAll('select, input');
+const inputs = filterForm.querySelectorAll('select, input[type=checkbox]');
 const price = filterForm.querySelector('#housing-price');
 const prices = price.querySelectorAll('option');
 const changeStateFilterForm = (enable)=>changeState(filterForm, enable);
@@ -57,7 +57,7 @@ const setFilter = (element)=>{
       }
       break;
     case 'INPUT':
-      if (element.type === 'checkbox' && element.checked){
+      if (element.checked){
         Filter.features[element.value] = true;
       }
       else{
@@ -125,11 +125,22 @@ const compareData = (ad)=>{
   return true;
 };
 
-const wrapper = throttle(renderAds, DELAY_BETWEEN_RENDER_ADS);
+const wrapper = debounce(renderAds, DELAY_BETWEEN_RENDER_ADS);
 
 filterForm.addEventListener('change', (evt)=>{
   setFilter(evt.target);
   wrapper();
 });
 
+const setDefaultFilters = ()=>{
+  console.log('setDefaultFilters');
+  inputs.forEach((val)=>{
+    val.value = ANY;
+    val.checked = false;
+  });
+  setAll();
+  wrapper();
+}
+
 export {compareData, changeStateFilterForm};
+export {setDefaultFilters};
