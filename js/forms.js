@@ -200,7 +200,6 @@ const onErrorAdForm = ()=>{
 };
 
 adForm.addEventListener('submit', (evt)=>{
-  console.log('submit');
   evt.preventDefault();
   const valid = pristine.validate();
   if (valid) {

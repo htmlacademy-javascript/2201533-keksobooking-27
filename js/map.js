@@ -76,7 +76,7 @@ map.on('load', ()=>{
 const setDefaultMap = ()=>{
   map.setView(MAP_CENTER, MAP_ZOOM);
   mainMarker.setLatLng(MAP_CENTER);
-}
+};
 
 export {renderAds};
 export {setDefaultMap};

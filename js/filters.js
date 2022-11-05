@@ -133,14 +133,13 @@ filterForm.addEventListener('change', (evt)=>{
 });
 
 const setDefaultFilters = ()=>{
-  console.log('setDefaultFilters');
   inputs.forEach((val)=>{
     val.value = ANY;
     val.checked = false;
   });
   setAll();
   wrapper();
-}
+};
 
 export {compareData, changeStateFilterForm};
 export {setDefaultFilters};
