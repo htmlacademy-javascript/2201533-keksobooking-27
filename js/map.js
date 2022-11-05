@@ -1,9 +1,12 @@
-import {MAIN_PIN_ICON, MAP_ZOOM, MAP_CENTER, PIN_ICON} from './setings.js';
-import {fillAddress, changeStateFilterForm, changeStateAdForm} from './forms.js';
+import {MAIN_PIN_ICON, MAP_ZOOM, MAP_CENTER, PIN_ICON, MAX_ADS} from './setings.js';
+import {fillAddress, changeStateAdForm} from './forms.js';
+import {changeStateFilterForm} from './filters.js';
 import {createCard} from './cards-render.js';
-import {loadData} from './real-data.js';
+import {loadData, getData} from './real-data.js';
+import {compareData} from './filters.js';
 
 const map = L.map('map-canvas');
+let currentMarker = null;
 
 L.tileLayer(
   'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',
@@ -32,24 +35,42 @@ const createMarker = (ad)=>{
   marker
     .bindPopup(createCard(ad))
     .addTo(adLayer)
-    .on('click', (evt)=>{
-      evt.target._popup._content = evt.target._popup._contentNode.innerHTML;
+    .on('popupopen', (evt)=>{
+      currentMarker = evt.target;
+    })
+    .on('popupclose', (evt)=>{
+      if (evt.target === currentMarker){
+        currentMarker = null;
+      }
     });
 };
 
-const renderAds = (data)=>{
-  data.forEach(createMarker);
-  changeStateFilterForm(true);
+const closePopup = ()=>{
+  if (currentMarker){
+    currentMarker.closePopup();
+  }
 };
 
-map.on('load', ()=>{
-  changeStateAdForm(true);
-  loadData(renderAds);
-})
-  .setView(MAP_CENTER, MAP_ZOOM);
+const renderAds = ()=>{
+  closePopup();
+  adLayer.clearLayers();
+  getData().filter(compareData).slice(0, MAX_ADS).forEach(createMarker);
+};
 
 mainMarker.addTo(map);
 
 mainMarker.on('moveend', (evt) => {
   fillAddress(evt.target.getLatLng());
 });
+
+map.on('load', ()=>{
+  changeStateAdForm(true);
+  loadData()
+    .then(()=>{
+      changeStateFilterForm(true);
+      renderAds();
+    });
+})
+  .setView(MAP_CENTER, MAP_ZOOM);
+
+export {renderAds};

@@ -62,6 +62,19 @@ const declension = (number, word)=>{
   return WORDS.get(word)[2];
 };
 
+function throttle (callback, delayBetweenFrames) {
+  let lastTime = 0;
+  return (...rest)=>{
+    const now = Date.now();
+    if (now - lastTime >= delayBetweenFrames) {
+      callback.apply(this, rest);
+      lastTime = now;
+      return lastTime;
+    }
+  };
+}
+
 export {getRandomFloat, getRandomInt, getUniqRandomArray, getRandomElement, newArray};
 export {declension};
 export {roundFraction};
+export {throttle};
