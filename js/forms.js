@@ -124,7 +124,7 @@ const setDefault = ()=>{
   fillAddress(MAP_CENTER);
   setDefaultFilters();
   setDefaultMap();
-  setDefaultPhoto()
+  setDefaultPhoto();
 };
 
 fillAddress(MAP_CENTER);

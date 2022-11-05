@@ -12,7 +12,7 @@ const elements = {
     preview: document.querySelector('.ad-form__photo'),
     input: document.querySelector('#images'),
     default: function(){
-      const img = this.preview.querySelector('IMG')
+      const img = this.preview.querySelector('IMG');
       if(img){
         img.remove();
       }

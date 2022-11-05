@@ -19,10 +19,10 @@ const filters = {
     lowBorder: 10000,
     highBorder: 50000,
     low: function(val){
-      return !(val < this.lowBorder)
+      return !(val < this.lowBorder);
     },
     high: function(val){
-      return !(val > this.highBorder)
+      return !(val > this.highBorder);
     },
     middle: function(val){
       return !(this.low(val) && this.high(val));
@@ -30,7 +30,7 @@ const filters = {
   }
 };
 
-const getFilterKey = (id)=>id.substring(ID_PREF.length)
+const getFilterKey = (id)=>id.substring(ID_PREF.length);
 
 const setFilter = (element)=>{
   switch (element.tagName){
@@ -71,7 +71,6 @@ const compareData = (ad)=>{
     switch (key){
       case (PRICE):{
         if (filters.prices[filters.filter.price](ad.offer.price)){
-          console.log(`${filters.filter.price}: ${ad.offer.price}`);
           return false;
         }
         break;
@@ -94,11 +93,11 @@ const compareData = (ad)=>{
   return true;
 };
 
-const wrapper_function = debounce(renderAds, DELAY_BETWEEN_RENDER_ADS);
+const wrapperFunction = debounce(renderAds, DELAY_BETWEEN_RENDER_ADS);
 
 filterForm.addEventListener('change', (evt)=>{
   setFilter(evt.target);
-  wrapper_function();
+  wrapperFunction();
 });
 
 const setDefaultFilters = ()=>{
@@ -107,7 +106,7 @@ const setDefaultFilters = ()=>{
     val.checked = false;
   });
   setAll();
-  wrapper_function();
+  wrapperFunction();
 };
 
 export {compareData, changeStateFilterForm};
