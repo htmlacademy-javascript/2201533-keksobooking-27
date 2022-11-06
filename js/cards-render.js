@@ -51,12 +51,12 @@ const createCard = (data)=>{
     });
     photoTemplate.remove();
   }
-  const cardInner = ()=>{
+  const getCardInner = ()=>{
     const crutch = document.createElement('div');
     crutch.append(card);
     return crutch.innerHTML;
   };
-  return cardInner();
+  return getCardInner();
 };
 
 export {createCard};

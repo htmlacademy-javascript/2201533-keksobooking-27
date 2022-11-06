@@ -11,21 +11,16 @@ const filterForm = document.querySelector('.map__filters');
 const inputs = filterForm.querySelectorAll('select, input[type=checkbox]');
 
 const changeStateFilterForm = (enable)=>changeState(filterForm, enable);
+changeStateFilterForm(false);
 
 const filters = {
   filter: {},
   features: {},
   prices: {
-    lowBorder: LOW_PRICE,
-    highBorder: HIGH_PRICE,
-    low: function(val){
-      return !(val < this.lowBorder);
-    },
-    high: function(val){
-      return !(val > this.highBorder);
-    },
-    middle: function(val){
-      return !(this.low(val) && this.high(val));
+    compareLow: (val)=>!(val < LOW_PRICE),
+    compareHigh: (val)=>!(val > HIGH_PRICE),
+    compareMiddle: function(val){
+      return !(this.compareLow(val) && this.compareHigh(val));
     }
   }
 };
@@ -65,12 +60,14 @@ const setAll = ()=>{
 };
 
 setAll();
+//turn - это глагол, я проверял
+const turnIntoNameAccordingCriteria = (word)=>`compare${word[0].toUpperCase()}${word.slice(1)}`;
 
 const compareData = (ad)=>{
   for(const key in filters.filter){
     switch (key){
       case (PRICE):{
-        if (filters.prices[filters.filter.price](ad.offer.price)){
+        if (filters.prices[turnIntoNameAccordingCriteria(filters.filter.price)](ad.offer.price)){
           return false;
         }
         break;
