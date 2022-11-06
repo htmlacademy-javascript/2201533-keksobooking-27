@@ -59,7 +59,7 @@ const renderAds = ()=>{
 
 mainMarker.addTo(map);
 
-mainMarker.on('moveend', (evt) => {
+mainMarker.on('move', (evt) => {
   fillAddress(evt.target.getLatLng());
 });
 
@@ -73,4 +73,10 @@ map.on('load', ()=>{
 })
   .setView(MAP_CENTER, MAP_ZOOM);
 
+const setDefaultMap = ()=>{
+  map.setView(MAP_CENTER, MAP_ZOOM);
+  mainMarker.setLatLng(MAP_CENTER);
+};
+
 export {renderAds};
+export {setDefaultMap};

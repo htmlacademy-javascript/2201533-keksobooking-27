@@ -1,4 +1,7 @@
-import {declension, roundFraction} from './utils.js';
+import {declineNouns} from './utils.js';
+import {setDefaultFilters} from './filters.js';
+import {setDefaultMap} from './map.js';
+import {setDefaultPhoto} from './photos.js';
 import {
   TYPES_ATTRIBUTES,
   MAP_CENTER,
@@ -7,7 +10,7 @@ import {
   RADIX,
 } from './setings.js';
 import {submitForm} from './real-data.js';
-import {submitSuccess, submitError} from './errors.js';
+import {renderSubmitSuccess, renderSubmitError} from './errors.js';
 
 const PRISTINE_CONFIG = {
   classTo: 'classTo',
@@ -24,12 +27,12 @@ const inputPrice = adForm.querySelector('#price');
 const selectRooms = adForm.querySelector('#room_number');
 const selectGuests = adForm.querySelector('#capacity');
 const inputAddress = adForm.querySelector('#address');
-const inputTitle = adForm.querySelector('#title');
 const fieldTimes = adForm.querySelector('.ad-form__element--time');
 const selectTimes = fieldTimes.querySelectorAll('select');
 const forms = document.querySelectorAll('form');
 const priceSliderContainer = adForm.querySelector('.ad-form__slider');
 const resetButton = adForm.querySelector('.ad-form__reset');
+const submitButton = adForm.querySelector('.ad-form__element--submit');
 //Перевод форм во включенное или отключенное состояние
 
 const changeState = (form, enable)=>{
@@ -58,11 +61,11 @@ adForm.querySelectorAll('input').forEach((e)=>{
   }
   if (e.minLength > -1){
     e.dataset.pristineMinlengthMessage =
-      `Минимальная длина ${e.minLength}  ${declension(e.minLength, 'символ')}`;
+      `Минимальная длина ${e.minLength}  ${declineNouns(e.minLength, 'символ')}`;
   }
   if (e.maxLength > -1){
     e.dataset.pristineMaxlengthMessage =
-      `Максимальная длина ${e.minLength}  ${declension(e.maxLength, 'символ')}`;
+      `Максимальная длина ${e.minLength}  ${declineNouns(e.maxLength, 'символ')}`;
   }
   if (e.max !== ''){
     e.dataset.pristineMaxMessage =
@@ -108,8 +111,8 @@ const setPriceFieldParam = ()=>{
 };
 
 const fillAddress = (location)=>{
-  inputAddress.value = `${roundFraction(location.lat, COORDINATES_PRECISION)},
-  ${roundFraction(location.lng, COORDINATES_PRECISION)}`;
+  inputAddress.value = `${location.lat.toFixed(COORDINATES_PRECISION)},
+  ${location.lng.toFixed(COORDINATES_PRECISION)}`;
 };
 
 const setDefault = ()=>{
@@ -119,11 +122,12 @@ const setDefault = ()=>{
     start: parseInt(inputPrice.min, RADIX)
   });
   fillAddress(MAP_CENTER);
-  //Это временный вспомогательный код
-  inputTitle.value = 'Текст заполнитель наименования';
+  setDefaultFilters();
+  setDefaultMap();
+  setDefaultPhoto();
 };
 
-setDefault();
+fillAddress(MAP_CENTER);
 resetButton.addEventListener('click', (evt)=>{
   evt.preventDefault();
   setDefault();
@@ -165,7 +169,7 @@ const getGuestsErrorMessage = ()=>{
   });
   const variants = [];
   const rooms = parseInt(selectRooms.selectedOptions[0].value, RADIX);
-  if (rooms === 100) {
+  if (rooms === LOT_OF_ROOMS) {
     variants.push(options[0]);
   }
   else{
@@ -188,43 +192,22 @@ selectRooms.addEventListener('change', ()=>validateRoomsGuests());
 selectGuests.addEventListener('change', ()=>validateRoomsGuests());
 
 const onSuccessAdForm = ()=>{
+  submitButton.classList.remove('ad-form--disabled');
   setDefault();
-  submitSuccess();
+  renderSubmitSuccess();
 };
 
 const onErrorAdForm = ()=>{
-  submitError();
+  renderSubmitError();
 };
 
 adForm.addEventListener('submit', (evt)=>{
   evt.preventDefault();
   const valid = pristine.validate();
   if (valid) {
+    submitButton.classList.add('ad-form--disabled');
     submitForm(adForm, onSuccessAdForm, onErrorAdForm);
   }
 });
 
 export {fillAddress, changeStateAdForm, changeState};
-
-
-/*const promoF = ()=>{
-  let i = 0;
-  const types = ['any','bungalow','flat','hotel','house','palace'];
-  const event = new Event('change', {bubbles: true});
-  const type = document.querySelector('#housing-type');
-  let oldDate = Date.now();
-  const interval = setInterval(()=>{
-    const date = Date.now();
-    console.log(`событие: ${date - oldDate}`);
-    oldDate = date;
-    type.value = types[i % 6];
-    type.dispatchEvent(event);
-    i++;
-    if (i > 10){
-      clearInterval(interval);
-    }
-  },DELAY_BETWEEN_RENDER_ADS / 2);
-};
-
-const promo = document.querySelector('.promo');
-promo.addEventListener('click', promoF);*/

@@ -1,73 +1,59 @@
 import {renderAds} from './map.js';
 import {changeState} from './forms.js';
-import {throttle} from './utils.js';
-import {DELAY_BETWEEN_RENDER_ADS} from './setings.js';
+import {debounce} from './utils.js';
+import {DELAY_BETWEEN_RENDER_ADS, LOW_PRICE, HIGH_PRICE} from './setings.js';
 
 const ID_PREF = 'housing-';
 const ANY = 'any';
 const PRICE = 'price';
 const FEATURES = 'features';
 const filterForm = document.querySelector('.map__filters');
-const lenIdPref = ID_PREF.length;
-const inputs = filterForm.querySelectorAll('select, input');
-const price = filterForm.querySelector('#housing-price');
-const prices = price.querySelectorAll('option');
+const inputs = filterForm.querySelectorAll('select, input[type=checkbox]');
+
 const changeStateFilterForm = (enable)=>changeState(filterForm, enable);
 
-const Filter = {
+const filters = {
   filter: {},
   features: {},
   prices: {
-    low: 0,
-    high: 0,
-    middle: {
-      min: 0,
-      max: 0
+    lowBorder: LOW_PRICE,
+    highBorder: HIGH_PRICE,
+    low: function(val){
+      return !(val < this.lowBorder);
+    },
+    high: function(val){
+      return !(val > this.highBorder);
+    },
+    middle: function(val){
+      return !(this.low(val) && this.high(val));
     }
-  },
+  }
 };
 
-const setPrices = ()=>{
-  prices.forEach((option)=>{
-    const text = option.textContent;
-    switch(option.value){
-      case (ANY):{
-        break;
-      }
-      case ('middle'):{
-        Filter.prices.middle.min = parseInt(text, 10);
-        Filter.prices.middle.max = parseInt(text.substring(text.indexOf('-') + 1), 10);
-        break;
-      }
-      default:{
-        Filter.prices[option.value] = parseInt(text.substring(text.indexOf(' ')), 10);
-      }
-    }
-  });
-};
+const getFilterKey = (id)=>id.substring(ID_PREF.length);
 
 const setFilter = (element)=>{
   switch (element.tagName){
     case 'SELECT':
       if (element.value === ANY){
-        delete(Filter.filter[element.id.substring(lenIdPref)]);
+        delete(filters.filter[getFilterKey(element.id)]);
       }
       else{
-        Filter.filter[element.id.substring(lenIdPref)] = element.value;
+        filters.filter[getFilterKey(element.id)] = element.value;
       }
       break;
     case 'INPUT':
-      if (element.type === 'checkbox' && element.checked){
-        Filter.features[element.value] = true;
+      if (element.checked){
+        filters.features[element.value] = true;
       }
       else{
-        delete(Filter.features[element.value]);
+        delete(filters.features[element.value]);
       }
-      if (Object.keys(Filter.features).length > 0){
-        Filter.filter.features = true;
+      if (Object.keys(filters.features).length > 0){
+        filters.filter.features = true;
       }
       else{
-        delete (Filter.filter.features);
+        delete (filters.filter.features);
       }
       break;
     default:
@@ -79,36 +65,18 @@ const setAll = ()=>{
 };
 
 setAll();
-setPrices();
 
 const compareData = (ad)=>{
-  for(const key in Filter.filter){
+  for(const key in filters.filter){
     switch (key){
       case (PRICE):{
-        switch(Filter.filter.price){
-          case('low'):{
-            if (ad.offer.price > Filter.prices.low){
-              return false;
-            }
-            break;
-          }
-          case('high'):{
-            if (ad.offer.price < Filter.prices.high){
-              return false;
-            }
-            break;
-          }
-          case('middle'):{
-            if (ad.offer.price < Filter.prices.middle.min || ad.offer.price > Filter.prices.middle.max){
-              return false;
-            }
-            break;
-          }
+        if (filters.prices[filters.filter.price](ad.offer.price)){
+          return false;
         }
         break;
       }
       case (FEATURES):{
-        for(const keyF in Filter.features){
+        for(const keyF in filters.features){
           if (!ad.offer.features || !ad.offer.features.includes(keyF)){
             return false;
           }
@@ -116,7 +84,7 @@ const compareData = (ad)=>{
         break;
       }
       default:{
-        if(Filter.filter[key] !== ad.offer[key].toString()){
+        if(filters.filter[key] !== ad.offer[key].toString()){
           return false;
         }
       }
@@ -125,11 +93,21 @@ const compareData = (ad)=>{
   return true;
 };
 
-const wrapper = throttle(renderAds, DELAY_BETWEEN_RENDER_ADS);
+const renderAdsDebounced = debounce(renderAds, DELAY_BETWEEN_RENDER_ADS);
 
 filterForm.addEventListener('change', (evt)=>{
   setFilter(evt.target);
-  wrapper();
+  renderAdsDebounced();
 });
 
+const setDefaultFilters = ()=>{
+  inputs.forEach((val)=>{
+    val.value = ANY;
+    val.checked = false;
+  });
+  setAll();
+  renderAdsDebounced();
+};
+
 export {compareData, changeStateFilterForm};
+export {setDefaultFilters};
