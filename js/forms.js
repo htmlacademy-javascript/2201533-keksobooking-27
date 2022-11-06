@@ -48,7 +48,7 @@ const changeState = (form, enable)=>{
 };
 
 const changeStateAdForm = (enable)=>changeState(adForm, enable);
-
+changeStateAdForm(false);
 
 //Это для пристины
 

@@ -29,20 +29,6 @@ function debounce (callback, timeoutDelay = 500) {
   };
 }
 
-
-function throttle (callback, delayBetweenFrames) {
-  let lastTime = 0;
-  return (...rest)=>{
-    const now = Date.now();
-    if (now - lastTime >= delayBetweenFrames) {
-      callback.apply(this, rest);
-      lastTime = now;
-      return lastTime;
-    }
-  };
-}
-
-
 export {declineNouns};
 export {roundFraction};
-export {throttle, debounce};
+export {debounce};
