@@ -53,11 +53,14 @@ const MAX_ADS = 10;
 const SUBMIT_URL = 'https://27.javascript.pages.academy/keksobooking';
 
 const DELAY_BETWEEN_RENDER_ADS = 500;
+const LOW_PRICE = 10000;
+const HIGH_PRICE = 50000;
+
 
 export {COORDINATES_PRECISION};
 export {TYPES_ATTRIBUTES};
 export {WORDS};
 export {MAP_CENTER, MAP_ZOOM, PIN_ICON, MAIN_PIN_ICON};
-export {STEP_PRICE, RADIX};
+export {STEP_PRICE, RADIX, LOW_PRICE, HIGH_PRICE};
 export {DATA_URL, MAX_ADS, SUBMIT_URL};
 export {DELAY_BETWEEN_RENDER_ADS};

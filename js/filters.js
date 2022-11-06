@@ -1,7 +1,7 @@
 import {renderAds} from './map.js';
 import {changeState} from './forms.js';
 import {debounce} from './utils.js';
-import {DELAY_BETWEEN_RENDER_ADS} from './setings.js';
+import {DELAY_BETWEEN_RENDER_ADS, LOW_PRICE, HIGH_PRICE} from './setings.js';
 
 const ID_PREF = 'housing-';
 const ANY = 'any';
@@ -16,8 +16,8 @@ const filters = {
   filter: {},
   features: {},
   prices: {
-    lowBorder: 10000,
-    highBorder: 50000,
+    lowBorder: LOW_PRICE,
+    highBorder: HIGH_PRICE,
     low: function(val){
       return !(val < this.lowBorder);
     },
@@ -93,11 +93,11 @@ const compareData = (ad)=>{
   return true;
 };
 
-const wrapperFunction = debounce(renderAds, DELAY_BETWEEN_RENDER_ADS);
+const renderAdsDebounced = debounce(renderAds, DELAY_BETWEEN_RENDER_ADS);
 
 filterForm.addEventListener('change', (evt)=>{
   setFilter(evt.target);
-  wrapperFunction();
+  renderAdsDebounced();
 });
 
 const setDefaultFilters = ()=>{
@@ -106,7 +106,7 @@ const setDefaultFilters = ()=>{
     val.checked = false;
   });
   setAll();
-  wrapperFunction();
+  renderAdsDebounced();
 };
 
 export {compareData, changeStateFilterForm};
