@@ -9,8 +9,8 @@ const map = L.map('map-canvas');
 let currentMarker = null;
 
 L.tileLayer(
-'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',
-{
+  'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',
+  {
     attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
   },
 ).addTo(map);
@@ -70,7 +70,7 @@ map.on('load', ()=>{
       changeStateFilterForm(true);
       renderAds();
     })
-    .catch((msg)=>{});
+    .catch(()=>{});
 })
   .setView(MAP_CENTER, MAP_ZOOM);
 
