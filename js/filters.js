@@ -11,7 +11,6 @@ const filterForm = document.querySelector('.map__filters');
 const inputs = filterForm.querySelectorAll('select, input[type=checkbox]');
 
 const changeStateFilterForm = (enable)=>changeState(filterForm, enable);
-changeStateFilterForm(false);
 
 const filters = {
   filter: {},

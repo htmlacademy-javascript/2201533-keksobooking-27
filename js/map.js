@@ -69,7 +69,8 @@ map.on('load', ()=>{
     .then(()=>{
       changeStateFilterForm(true);
       renderAds();
-    });
+    })
+    .catch(()=>{});
 })
   .setView(MAP_CENTER, MAP_ZOOM);
 

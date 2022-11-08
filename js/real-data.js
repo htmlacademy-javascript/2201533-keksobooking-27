@@ -10,14 +10,17 @@ const setData = (res)=>{
 const loadData = ()=>
   fetch(DATA_URL)
     .then((response)=>{
-      if (response.ok){
+      if (response.ok) {
         return response.json();
       }
       throw `status: ${response.status},
         statusText: ${response.statusText}`;
     })
     .then(setData)
-    .catch(renderLoadingDataError);
+    .catch((msg)=>{
+      renderLoadingDataError(msg);
+      throw 'don`t worry, be happy';
+    });
 
 
 const submitForm = (form, onSuccess, onError)=>{
